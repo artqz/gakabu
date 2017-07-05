@@ -1,4 +1,6 @@
 module.exports = {
+  loading: 'components/loading.vue',
+
   /*
   ** Headers of the page
   */

@@ -1,5 +1,13 @@
 <template>
   <div>
+    <nav>
+      <ul>
+        <li><nuxt-link to="/">Главная</nuxt-link></li>
+        <li><nuxt-link to="feed">Лента</nuxt-link></li>
+        <li><nuxt-link to="best">Лучшее</nuxt-link></li>
+        <li><nuxt-link to="new">Новое</nuxt-link></li>
+      </ul>
+    </nav>
     <nuxt/>
   </div>
 </template>
@@ -15,6 +23,18 @@ html
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+nav ul
+{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: overlay;
+}
+nav ul li
+{
+  float: left;
+  margin-right: 10px;
 }
 *, *:before, *:after
 {

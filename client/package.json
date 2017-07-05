@@ -5,6 +5,7 @@
   "author": "artqz <djoctuk@yandex.ru>",
   "private": true,
   "dependencies": {
+    "bulma": "^0.4.2",
     "nuxt": "latest"
   },
   "scripts": {
