@@ -1,9 +1,14 @@
 module.exports = {
   loading: 'components/loading.vue',
-
+  router: {
+    linkActiveClass: 'active'
+  },
   /*
   ** Headers of the page
   */
+  build: {
+    vendor: ['axios']
+  },
   head: {
     title: 'starter',
     meta: [

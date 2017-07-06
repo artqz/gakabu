@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*
+ * API
+ * Posts
+ */
+Route::get('api/v1/posts', 'PostsController@index');
+Route::get('api/v1/posts/{id}', 'PostsController@show');
+Route::post('api/v1/posts/{id}', 'PostsController@create');
+Route::put('api/v1/posts/{id}', 'PostsController@edit');
+//Route::patch('api/v1/posts/{id}', 'PostsController@edit');
+Route::delete('api/v1/posts/{id}', 'PostsController@delete');

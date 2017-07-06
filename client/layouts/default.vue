@@ -1,14 +1,16 @@
 <template>
   <div>
-    <nav>
-      <ul>
-        <li><nuxt-link to="/">Главная</nuxt-link></li>
+    <nav class="navbar">
+      <ul class="menu">
         <li><nuxt-link to="feed">Лента</nuxt-link></li>
         <li><nuxt-link to="best">Лучшее</nuxt-link></li>
         <li><nuxt-link to="new">Новое</nuxt-link></li>
+        <li><nuxt-link to="users">Пользователи</nuxt-link></li>
       </ul>
     </nav>
-    <nuxt/>
+    <div class="container">
+      <nuxt/>
+    </div>
   </div>
 </template>
 
@@ -24,17 +26,9 @@ html
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
-nav ul
+body
 {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow: overlay;
-}
-nav ul li
-{
-  float: left;
-  margin-right: 10px;
+  background-color: #111111;
 }
 *, *:before, *:after
 {
@@ -69,5 +63,38 @@ nav ul li
 {
   color: #fff;
   background-color: #35495e;
+}
+.navbar
+{
+  overflow: hidden;
+  background-color: #232323;
+  line-height: 3;
+  padding: 0 20px 0 20px;
+}
+.navbar .menu
+{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar .menu li {
+  float: left;
+  /*padding: 0 10px 0 10px;*/
+}
+.navbar .menu li:hover {
+  background-color: #2d2d2d;
+}
+.navbar .menu li a {
+  color: #fff;
+  text-decoration: none;
+  line-height: 3;
+  padding: 0 10px 0 10px;
+  display: inline-block;
+}
+.navbar .menu li a.active {
+  color: red;
+}
+.container {
+  margin: 20px;
 }
 </style>
