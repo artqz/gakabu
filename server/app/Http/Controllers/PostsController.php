@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
     protected function index()
     {
-        return dd ('123');
+        $posts = Post::all();
+        return dd ($posts);
     }
 }
