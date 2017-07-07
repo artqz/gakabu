@@ -15,13 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 /*
  * API
- * Posts
+ * Auth
  */
-Route::get('api/v1/posts', 'PostsController@index');
-Route::get('api/v1/posts/{id}', 'PostsController@show');
-Route::post('api/v1/posts/{id}', 'PostsController@create');
-Route::put('api/v1/posts/{id}', 'PostsController@edit');
-//Route::patch('api/v1/posts/{id}', 'PostsController@edit');
-Route::delete('api/v1/posts/{id}', 'PostsController@delete');
+Route::group(['prefix' => 'api/v1', 'middleware' => 'csrf'], function () {
+    Route::post('/auth', 'Auth\AuthController@authenticate');
+
+    Route::get('/posts', 'PostsController@index');
+    Route::get('/posts/{id}', 'PostsController@show');
+    Route::post('/posts', 'PostsController@create')->middleware('csrf');
+    Route::put('/posts/{id}', 'PostsController@edit');
+    //Route::patch('api/v1/posts/{id}', 'PostsController@edit');
+    Route::delete('/posts/{id}', 'PostsController@delete');
+});
