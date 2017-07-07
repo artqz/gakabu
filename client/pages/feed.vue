@@ -1,14 +1,16 @@
 <template>
   <div class="test">
     <h1>Лента</h1>
-    123
+    <Logo></Logo>
   </div>
-</template>x
+</template>
 
 <script>
+import Logo from '~components/Logo.vue'
+
   export default {
     components: {
-      title: 'Лента'
+      Logo
     }
   }
 </script>

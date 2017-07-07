@@ -2,10 +2,10 @@
   <div>
     <nav class="navbar">
       <ul class="menu">
-        <li><nuxt-link to="feed">Лента</nuxt-link></li>
-        <li><nuxt-link to="best">Лучшее</nuxt-link></li>
-        <li><nuxt-link to="new">Новое</nuxt-link></li>
-        <li><nuxt-link to="users">Пользователи</nuxt-link></li>
+        <li><router-link to="/feed">Лента</router-link></li>
+        <li><router-link to="/best">Лучшее</router-link></li>
+        <li><router-link to="/new">Новое</router-link></li>
+        <li><router-link to="/users">Пользователи</router-link></li>
       </ul>
     </nav>
     <div class="container">
