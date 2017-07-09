@@ -1,7 +1,7 @@
 <template>
   <div class="test">
     <h1>Лента</h1>
-    <post/>
+    <post v-bind:body="test"/>
   </div>
 </template>
 
@@ -10,7 +10,10 @@
 
   export default {
     head: {
-      title: 'feed'
+      titleTemplate: 'Feed - %s'
+    },
+    data: {
+      test: 123
     },
     components: {
       post
