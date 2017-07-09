@@ -1,16 +1,19 @@
 <template>
   <div class="test">
     <h1>Лента</h1>
-    <Logo></Logo>
+    <post/>
   </div>
 </template>
 
 <script>
-import Logo from '~components/Logo.vue'
+  import post from '~components/posts/post.vue'
 
   export default {
+    head: {
+      title: 'feed'
+    },
     components: {
-      Logo
+      post
     }
   }
 </script>
