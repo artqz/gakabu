@@ -1,7 +1,7 @@
 <template>
   <div class="post">
     <div class="post-head">
-      <nuxt-link :to="'/posts/'+data.slug">{{ data.title }}</nuxt-link>
+      <nuxt-link :to="'/posts/'+data.slug+'-'+data.id">{{ data.title }}</nuxt-link>
     </div>
     <div class="post-body">
       <div v-html="data.body"></div>
