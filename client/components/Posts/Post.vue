@@ -1,7 +1,10 @@
 <template>
   <div class="post">
+    <div class="post-head">
+      <nuxt-link :to="'/posts/'+data.slug">{{ data.title }}</nuxt-link>
+    </div>
     <div class="post-body">
-      {{ body }}
+      <div v-html="data.body"></div>
     </div>
     <div class="post-wrap">
       <troll/>
@@ -13,7 +16,7 @@
 import troll from '~components/posts/troll.vue'
 
 export default {
-  props: ['body'],
+  props: ['data'],
   components: {
     troll
   }
@@ -41,6 +44,10 @@ export default {
     -moz-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
     -khtml-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
     box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+}
+.post-head {
+  padding: 11px 0;
+  margin: 0 20px;
 }
 .post-body {
   padding: 11px 0;

@@ -1,19 +1,25 @@
 <template>
   <div class="test">
     <h1>Лента</h1>
-    <post v-bind:body="test"/>
+    <div v-for="post in posts">
+      <post :data="post"/>
+    </div>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   import post from '~components/posts/post.vue'
 
   export default {
+    asyncData () {
+      return axios.get('http://127.0.0.1:8000/api/v1/posts')
+      .then((res) => {
+        return { posts: res.data.posts }
+      })
+    },
     head: {
       titleTemplate: 'Feed - %s'
-    },
-    data: {
-      test: 123
     },
     components: {
       post
