@@ -10,31 +10,25 @@ class PostsController extends Controller
 {
     protected function index()
     {
+        header('Access-Control-Allow-Origin: *');
         $posts = Post::all();
-        return Response::json(array(
-            'error' => false,
-            'posts' => $posts,
-            'status_code' => 200
-        ));
+        return Response::json($posts);
     }
 
     protected function show($post_id)
     {
-        $post = Post::where('id', $post_id)->get();
-        return Response::json(array(
-            'error' => false,
-            'post' => $post,
-            'status_code' => 200
-        ));
+        header('Access-Control-Allow-Origin: *');
+        $post = Post::where('id', $post_id)->get()[0];
+        return Response::json($post);
     }
 
-    protected function create()
+    protected function create(Request $request)
     {
-
-        return Response::json(array(
-            'error' => false,
-            'post' => 'test',
-            'status_code' => 200
-        ));
+        return Post::create([
+            'user_id' => 1,
+            'slug' => str_slug($request['title']),
+            'title' => $request['title'],
+            'body' => $request['body'],
+        ]);
     }
 }

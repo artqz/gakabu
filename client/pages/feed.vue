@@ -15,7 +15,7 @@
     asyncData () {
       return axios.get('http://127.0.0.1:8000/api/v1/posts')
       .then((res) => {
-        return { posts: res.data.posts }
+        return { posts: res.data }
       })
     },
     head: {

@@ -1,23 +1,34 @@
 <template>
-  <div class="posts">
-    <h3>{{ title }}</h3>
-    <p>{{ body }}</p>
+  <div class="test">
+    <h1>Лента</h1>
+    <post :data="post"/>
+    <span class="error">1</span>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+  import axios from 'axios'
+  import post from '~components/posts/post.vue'
 
-export default {
-  validate ({ params }) {
-    return !isNaN(+params.id)
-  },
-  asyncData ({ params, error }) {
-    return axios.get('https://jsonplaceholder.typicode.com/posts/')
-    .then((res) => res.data)
-    .catch(() => {
-      error({ message: 'Posts not found', statusCode: 404 })
-    })
+  export default {
+
+    asyncData ({ params, error }) {
+      return axios.get(`http://127.0.0.1:8000/api/v1/posts/${+params.id.split('-').slice(-1)}`)
+      .then((res) => {
+        return { post: res.data }
+      })
+    },
+    head: {
+      titleTemplate: ' - %s'
+    },
+    components: {
+      post
+    }
   }
-}
 </script>
+
+<style>
+  .error {
+    color: #fff;
+  }
+</style>

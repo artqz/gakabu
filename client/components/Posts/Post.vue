@@ -2,6 +2,7 @@
   <div class="post">
     <div class="post-head">
       <nuxt-link :to="'/posts/'+data.slug+'-'+data.id">{{ data.title }}</nuxt-link>
+      {{ data.slug }}
     </div>
     <div class="post-body">
       <div v-html="data.body"></div>

@@ -3,7 +3,7 @@
     123
     <ul class="users">
       <li v-for="user in users">
-        <nuxt-link :to="'/users/'+user.id">{{ user.name }}</nuxt-link>
+        <nuxt-link :to="'/users/'+user.id" :id="123">{{ user.name }}</nuxt-link>
       </li>
     </ul>
   </div>
