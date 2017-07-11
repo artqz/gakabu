@@ -2,7 +2,7 @@
   <div class="test">
     <h1>Лента</h1>
     <post :data="post"/>
-    <span class="error">1</span>
+    <span class="error">{{this.post.title}}</span>
   </div>
 </template>
 
@@ -11,15 +11,17 @@
   import post from '~components/posts/post.vue'
 
   export default {
-
+    layout: 'light',
     asyncData ({ params, error }) {
       return axios.get(`http://127.0.0.1:8000/api/v1/posts/${+params.id.split('-').slice(-1)}`)
       .then((res) => {
         return { post: res.data }
       })
     },
-    head: {
-      titleTemplate: ' - %s'
+    head () {
+      return {
+        titleTemplate: `${this.post.title} - %s`
+      }
     },
     components: {
       post

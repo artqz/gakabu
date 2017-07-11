@@ -12,6 +12,7 @@
   import post from '~components/posts/post.vue'
 
   export default {
+    layout: 'light',
     asyncData () {
       return axios.get('http://127.0.0.1:8000/api/v1/posts')
       .then((res) => {
