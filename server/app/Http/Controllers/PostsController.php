@@ -10,14 +10,12 @@ class PostsController extends Controller
 {
     protected function index()
     {
-        header('Access-Control-Allow-Origin: *');
         $posts = Post::all();
         return Response::json($posts);
     }
 
     protected function show($post_id)
     {
-        header('Access-Control-Allow-Origin: *');
         $post = Post::where('id', $post_id)->get()[0];
         return Response::json($post);
     }

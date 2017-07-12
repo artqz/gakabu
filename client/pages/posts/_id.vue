@@ -2,7 +2,7 @@
   <div class="test">
     <h1>Лента</h1>
     <post :data="post"/>
-    <span class="error">{{params}}</span>
+    <span class="error">123</span>
   </div>
 </template>
 
@@ -23,8 +23,8 @@
         titleTemplate: `${this.post.title} - %s`
       }
     },
-    fetch ({ params }) {
-      return params.path: 1
+    fetch ({params}) {
+      return {}
     },
     components: {
       post

@@ -179,6 +179,9 @@ return [
 
         // Tymon  JWT Auth
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+
+        // barryvdh/laravel-cors
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*
