@@ -11,6 +11,7 @@
 import axios from 'axios'
 
 export default {
+  layout: 'light',
   validate ({ params }) {
     return !isNaN(+params.id)
   },

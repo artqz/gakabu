@@ -8,19 +8,19 @@ use Illuminate\Support\Facades\Response;
 
 class PostsController extends Controller
 {
-    protected function index()
+    public function index()
     {
         $posts = Post::all();
         return Response::json($posts);
     }
 
-    protected function show($post_id)
+    public function show($post_id)
     {
         $post = Post::where('id', $post_id)->get()[0];
         return Response::json($post);
     }
 
-    protected function create(Request $request)
+    public function create(Request $request)
     {
         return Post::create([
             'user_id' => 1,

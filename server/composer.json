@@ -9,6 +9,7 @@
         "barryvdh/laravel-cors": "^0.9.2",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "mashape/unirest-php": "^3.0",
         "tymon/jwt-auth": "0.5.12"
     },
     "require-dev": {
@@ -20,6 +21,9 @@
         "classmap": [
             "database"
         ],
+        "psr-0": {
+            "Unirest\\": "src/"
+        },
         "psr-4": {
             "App\\": "app/"
         }

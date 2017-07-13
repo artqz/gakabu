@@ -11,6 +11,7 @@
 import axios from 'axios'
 
 export default {
+  layout: 'light',
   asyncData () {
     return axios.get('https://jsonplaceholder.typicode.com/posts')
     .then((res) => {

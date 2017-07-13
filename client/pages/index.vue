@@ -6,6 +6,7 @@
 
 <script>
   export default {
+    layout: 'light',
     components: {
       title: 'Лента'
     }

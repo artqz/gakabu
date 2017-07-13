@@ -10,6 +10,7 @@
   import axios from 'axios'
 
   export default {
+    layout: 'light',
     head: {
       titleTemplate: ' - %s'
     },

@@ -20,7 +20,7 @@
       })
     },
     head: {
-      titleTemplate: 'Feed - %s'
+      titleTemplate: 'Лента - %s'
     },
     components: {
       post

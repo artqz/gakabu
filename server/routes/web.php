@@ -22,11 +22,13 @@ Route::get('/', function () {
  */
 Route::group(['prefix' => 'api/v1', 'middleware' => 'csrf'], function () {
     Route::post('/auth', 'Auth\AuthController@authenticate');
-
     Route::get('/posts', 'PostsController@index');
     Route::get('/posts/{id}', 'PostsController@show');
+    Route::get('/posts/{id}/comments', 'PostsController@comments');
     Route::post('/posts', 'PostsController@create');
     Route::put('/posts/{id}', 'PostsController@edit');
     //Route::patch('api/v1/posts/{id}', 'PostsController@edit');
     Route::delete('/posts/{id}', 'PostsController@delete');
+
+    Route::get('/games/{name}', 'IgdbController@show');
 });
