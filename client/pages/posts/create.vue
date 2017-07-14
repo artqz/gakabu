@@ -23,8 +23,7 @@
       titleTemplate: ' - %s'
     },
     components: {
-      AutocompleteInput,
-      autocomplete: Vue2Autocomplete
+      AutocompleteInput
     },
     computed: {
       main: function () {

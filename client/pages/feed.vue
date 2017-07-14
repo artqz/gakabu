@@ -15,12 +15,12 @@
     layout: 'light',
     data () {
       console.log(this)
-      return { posts: {} }
+      return { posts: [] }
     },
     asyncData () {
       return axios.get('http://127.0.0.1:8000/api/v1/posts')
       .then((res) => {
-        return { games: res.data }
+        return { posts: res.data }
       })
     },
     head: {
