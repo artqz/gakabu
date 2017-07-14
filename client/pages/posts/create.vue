@@ -4,21 +4,35 @@
     <div v-for="game in games">
         {{game.name}}
     </div>
+    <AutocompleteInput url="http://localhost:8000/api/v1/games/"/>
     <input v-model="message" @input="getGames">
     <input type="submit" name="" value="og" @click="getGames">
     <input type="title" name="" value="">
     <textarea name="body" rows="8" cols="80"></textarea>
     <input type="submit" name="" value="og" @click="addPost">
+
+    <autocomplete
+   url="http://localhost:8000/api/v1/games"
+   anchor="name"
+   label="writer"
+   :on-select="getData">
+ </autocomplete>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
+  import Vue2Autocomplete from 'vue2-autocomplete-js'
+  import AutocompleteInput from '~components/Posts/AutocompleteInput.vue'
 
   export default {
     layout: 'light',
     head: {
       titleTemplate: ' - %s'
+    },
+    components: {
+      AutocompleteInput,
+      autocomplete: Vue2Autocomplete
     },
     computed: {
       main: function () {
