@@ -10,19 +10,11 @@
     <input type="title" name="" value="">
     <textarea name="body" rows="8" cols="80"></textarea>
     <input type="submit" name="" value="og" @click="addPost">
-
-    <autocomplete
-   url="http://localhost:8000/api/v1/games"
-   anchor="name"
-   label="writer"
-   :on-select="getData">
- </autocomplete>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
-  import Vue2Autocomplete from 'vue2-autocomplete-js'
   import AutocompleteInput from '~components/Posts/AutocompleteInput.vue'
 
   export default {
