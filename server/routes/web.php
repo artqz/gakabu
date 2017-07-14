@@ -31,4 +31,5 @@ Route::group(['prefix' => 'api/v1', 'middleware' => 'csrf'], function () {
     Route::delete('/posts/{id}', 'PostsController@delete');
 
     Route::get('/games/{name}', 'IgdbController@show');
+    Route::get('/games', 'IgdbController@index');
 });

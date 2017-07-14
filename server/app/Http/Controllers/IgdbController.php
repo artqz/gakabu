@@ -9,7 +9,9 @@ class IgdbController extends Controller
 {
     public function index()
     {
+        $games = null;
 
+        return Response::json($games);
     }
     public function show($name)
     {
@@ -19,7 +21,6 @@ class IgdbController extends Controller
                 "Accept" => "application/json"
             )
         );
-
         return Response::json($games->body);
     }
 }
