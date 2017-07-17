@@ -2,9 +2,9 @@
   <div class="post-editor">
     <div class="input-box">
       <ul class="inputs-list">
-        <li class="input" v-for="input in inputs">
+        <li class="input" v-for="(input, index) in inputs">
           <div class="input-field" v-if="input.type == 'text'">
-          <TextElement :content="input.value" @update="text = $event"></TextElement>
+          <TextElement :content="input.value" @update="text = $event" v-on:update="update"></TextElement>
           </div>
           <div v-if="input.type == 'image'">
             <img :src="input.value" alt="">
@@ -18,6 +18,9 @@
         <li>Добавить Картинку</li>
         <li @click="test">Добавить Видео</li>
       </ul>
+    </div>
+    <div v-html="text">
+
     </div>
   </div>
 </template>
@@ -44,7 +47,12 @@ export default {
       this.inputs.push({type: type, value: ''})
     },
     test (type) {
-      console.log(this.inputs)
+      console.log(this)
+      console.log(this.$children)
+    },
+    update (update) {
+      this.inputs[0].value = update
+      this.text = update
     }
   }
 }

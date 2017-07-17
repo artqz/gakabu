@@ -1,18 +1,26 @@
 <template>
-  <div class="field" contenteditable="true" placeholder="Введите текст..." @input="update" @keyup.13="enter"></div>
+  <div class="field" contenteditable="true" :placeholder="textPlaceholder" @input="update" @keyup.13="enter"></div>
 </template>
 
 <script>
   export default {
     props: ['content', 'data'],
+    data () {
+      return {
+        textPlaceholder: 'Введите текст...',
+        showPlaceholder: true
+      }
+    },
     mounted () {
+      console.log(this.$el.placeholder)
       if (this.content !== '') {
         this.$el.innerHTML = '<p>' + this.content + '</p>'
       }
     },
     methods: {
       update (event) {
-        this.$emit('update', event.target.innerText)
+        // console.log(this)
+        this.$emit('update', event.target.innerHTML)
         if (event.target.innerText === '') {
           document.execCommand('formatBlock', false, 'p')
         }
