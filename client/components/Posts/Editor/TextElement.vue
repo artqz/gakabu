@@ -1,5 +1,5 @@
 <template>
-  <div class="field" contenteditable="true" placeholder="Введите текст..." @input="update" @keyup.13="enter" @keyup.8="backspace"></div>
+  <div class="field" contenteditable="true" placeholder="Введите текст..." @input="update" @keyup.13="enter"></div>
 </template>
 
 <script>
@@ -19,9 +19,6 @@
       },
       enter () {
         document.execCommand('formatBlock', false, 'p')
-      },
-      backspace () {
-        event.target.innerText = ''
       }
     }
   }

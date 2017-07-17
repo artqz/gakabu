@@ -67,7 +67,7 @@ export default {
     list-style: none;
   }
   .input-field {
-    padding: 7px 10px;
+    padding: 7px 15px;
   }
   .input .field {
     background: url(/images/elements/line-text-bg.png);
