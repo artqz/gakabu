@@ -1,10 +1,10 @@
 <template>
   <div class="autocomplete-input">
-    <input type="text" placeholder="Выбрать игру..." v-model="query" @input="onChange">
+    <input type="text" placeholder="Выберите игру..." v-model="query" @input="onChange">
+    <div class="loading" v-show="loading">
+      <span class="spinner"></span>
+    </div>
     <ul class="autocomplete-list" v-show="showList">
-      <div class="loading" v-show="loading">
-        <span class="spinner"></span>
-      </div>
       <li v-for="game in games">
         {{game.name}}
       </li>
@@ -67,6 +67,7 @@
  .autocomplete-input {
    width: 100%;
    position: relative;
+   margin-bottom: 20px;
  }
  .autocomplete-input input {
    width: 100%;
@@ -78,7 +79,6 @@
    overflow: hidden;
    position: relative;
    z-index: 1;
-   position: absolute;
    border-radius: 2px;
  }
  .autocomplete-input input:focus {
@@ -108,20 +108,21 @@
    color: #5a5a5a;
  }
  .loading {
-   width: 100%;
-   position: relative;
-   height: 40px;
+   position: absolute;
+   top: -2px;
+   right: 40px;
+   z-index: 2;
 }
  .spinner {
    left: 50%;
-   top: 4px;
+   top: 9px;
    position: absolute;
    background-image: url(/images/icons/spinner.svg);
    background-repeat: no-repeat;
    display: block;
-   background-size: 36px 36px;
-   width: 36px;
-   height: 36px;
+   background-size: 26px 26px;
+   width: 26px;
+   height: 26px;
    animation-name: rotation;
    animation-duration: 2s;
    animation-iteration-count: infinite;

@@ -1,12 +1,11 @@
 <template>
-  <div class="">
+  <div class="post-container">
     {{message}}
     <div v-for="game in games">
         {{game.name}}
     </div>
     <AutocompleteInput url="http://localhost:8000/api/v1/games/"/>
-    <input v-model="message" @input="getGames">
-    <input type="submit" name="" value="og" @click="getGames">
+    <PostEditor/>
     <input type="title" name="" value="">
     <textarea name="body" rows="8" cols="80"></textarea>
     <input type="submit" name="" value="og" @click="addPost">
@@ -15,7 +14,8 @@
 
 <script>
   import axios from 'axios'
-  import AutocompleteInput from '~components/Posts/AutocompleteInput.vue'
+  import AutocompleteInput from '~components/Posts/Editor/AutocompleteInput.vue'
+  import PostEditor from '~components/Posts/Editor/PostEditor.vue'
 
   export default {
     layout: 'light',
@@ -23,7 +23,8 @@
       titleTemplate: ' - %s'
     },
     components: {
-      AutocompleteInput
+      AutocompleteInput,
+      PostEditor
     },
     computed: {
       main: function () {
@@ -49,15 +50,13 @@
         .then((res) => {
           console.log(res)
         })
-      },
-      getGames () {
-        console.log(this.message)
-        return axios.get(`http://localhost:8000/api/v1/games/${this.message}`)
-        .then((res) => {
-          this.games = res.data
-          console.log(res.data)
-        })
       }
     }
   }
 </script>
+
+<style media="screen">
+  .post-container {
+    width: 600px;
+  }
+</style>
