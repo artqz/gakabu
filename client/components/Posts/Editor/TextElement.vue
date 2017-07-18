@@ -1,32 +1,54 @@
 <template>
-  <div class="field" contenteditable="true" :placeholder="textPlaceholder" @input="update" @keyup.13="enter"></div>
+  <div class="field" contenteditable="true" :placeholder="textPlaceholder" v-once @input="update" @keyup.13="enter" @paste="test($event)" v-html="text" @change="text"></div>
 </template>
 
 <script>
   export default {
-    props: ['content', 'data'],
+    props: ['content'],
     data () {
       return {
+        text: '',
         textPlaceholder: 'Введите текст...',
         showPlaceholder: true
       }
     },
     mounted () {
-      console.log(this.$el.placeholder)
       if (this.content !== '') {
-        this.$el.innerHTML = '<p>' + this.content + '</p>'
+        this.text = '<p>' + this.content + '</p>'
       }
     },
     methods: {
-      update (event) {
-        // console.log(this)
-        this.$emit('update', event.target.innerHTML)
-        if (event.target.innerText === '') {
-          document.execCommand('formatBlock', false, 'p')
-        }
+      update () {
+        console.log(event)
+        this.text = this.stripTags(event.target.innerHTML)
+        this.$emit('update', this.text)
+        // console.log(content)
+        // this.$emit('update', this.stripTags(event.target.innerText))
+        // if (event.target.innerText === '') {
+        //  document.execCommand('formatBlock', false, 'p')
+        // }
       },
       enter () {
         document.execCommand('formatBlock', false, 'p')
+      },
+      test (event) {
+        // var length = ele.html().length
+        // ele.focus()
+        console.log(this.$el)
+      },
+      stripTags (str) {
+        // remove BR tags and replace them with line break
+        str = str.replace(/<br>/gi, '\n')
+        str = str.replace(/<br\s\/>/gi, '\n')
+        str = str.replace(/<br\/>/gi, '\n')
+
+        // remove P and A tags but preserve what's inside of them
+        str = str.replace(/<p>/gm, '')
+        str = str.replace(/<\/p>/gm, '')
+        str = str.replace(/<h3.*>/gm, '')
+        str = str.replace(/<\/h3>/gm, '')
+        str = str.replace(/<a.*href="(.*?)".*>(.*?)<\/a>/gi, ' $2 ($1)')
+        return str
       }
     }
   }

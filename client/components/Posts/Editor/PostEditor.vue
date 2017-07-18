@@ -5,6 +5,7 @@
         <li class="input" v-for="(input, index) in inputs">
           <div class="input-field" v-if="input.type == 'text'">
           <TextElement :content="input.value" @update="text = $event" v-on:update="update"></TextElement>
+          <medium-editor :text='myText' :options='options' :reuse-medium-editor-instance="false">
           </div>
           <div v-if="input.type == 'image'">
             <img :src="input.value" alt="">
@@ -26,11 +27,13 @@
 </template>
 
 <script>
+import editor from 'vue2-medium-editor'
 import TextElement from '~components/Posts/Editor/TextElement.vue'
 
 export default {
   components: {
-    TextElement
+    TextElement,
+    'medium-editor': editor
   },
   data () {
     return {
