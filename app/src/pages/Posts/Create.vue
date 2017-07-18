@@ -61,6 +61,7 @@
     }
   }
 </script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.22.1/css/medium-editor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.22.1/css/themes/flat.css">
 <style>
 </style>
