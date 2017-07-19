@@ -1,5 +1,5 @@
 .medium-toolbar-arrow-under:after {
-  border-width: 3px;
+  border-width: 4px;
   border-color: rgba(0,0,0,.8) transparent transparent transparent;
   top: 30px;
 }

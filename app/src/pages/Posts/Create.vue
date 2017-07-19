@@ -9,10 +9,10 @@
     <div class="post-body">
       <ul class="items-list">
         <li class="item" v-for="(items, index) in editor.bodyItems">
-          <div class="item-input" v-if="items.type == 'text'">
+          <div class="item-text" v-if="items.type == 'text'">
             <medium-editor :id="index" :text='items.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
           </div>
-          <div v-if="items.type == 'image'">
+          <div class="item-image" v-if="items.type == 'image'">
             <img :src="items.value" alt="">
           </div>
         </li>
@@ -23,8 +23,16 @@
             <i class="i-sprite-add-text"></i>
           </div>
         </li>
-        <li><div class="item add-image" @click="addItem('images')" title="Добавить изображение"></div></li>
-        <li><div class="item add-video" @click="addItem('video')" title="Добавить видео"></div></li>
+        <li>
+          <div class="item add-image" @click="addItem('images')" title="Добавить изображение">
+            <i class="i-sprite-add-image"></i>
+          </div>
+        </li>
+        <li>
+          <div class="item add-video" @click="addItem('video')" title="Добавить видео">
+            <i class="i-sprite-add-video"></i>
+          </div>
+        </li>
       </ul>
     </div>
     <div class="post-tags">
@@ -56,7 +64,13 @@
         },
         options: {
           toolbar: {
-            buttons: ['bold', 'italic', 'strikethrough', 'anchor', 'quote']
+            buttons: [
+              {name: 'bold', aria: 'Жирный'},
+              {name: 'italic', aria: 'Курсив'},
+              {name: 'strikethrough', aria: 'Зачеркнутый'},
+              {name: 'anchor', aria: 'Ссылка'},
+              {name: 'quote', aria: 'Цитата'}
+            ]
           },
           placeholder: {
             text: 'Введите текст'
@@ -98,8 +112,14 @@
     padding: 0;
     list-style: none;
   }
-  .item-input {
-    padding: 7px 15px;
+  .item-text {
+    padding: 15px 15px;
+  }
+  .item-image {
+    padding: 15px 0;
+  }
+  .item {
+    margin-bottom: 0;
   }
   .item .medium-editor-element {
     background: url(/images/elements/line-text-bg.png);
@@ -143,7 +163,7 @@
     cursor: pointer;
     position: relative;
     border: 0;
-    border-radius: 20px;
+    border-radius: 50%;
     background-color: #bbcadb;
     padding: 5px;
     outline: 0;
@@ -158,5 +178,27 @@
   }
   .panel-adding .item:hover {
     background-color: #a7b8cc;
+  }
+  .panel-adding .item i {
+    vertical-align: middle;
+    display: block;
+  }
+  .i-sprite-add-text {
+    background-image: url(/icons/i-sprite.png);
+    background-position: -42px -381px;
+    width: 32px;
+    height: 32px;
+  }
+  .i-sprite-add-image {
+    background-image: url(/icons/i-sprite.png);
+    background-position: -359px -143px;
+    width: 32px;
+    height: 32px;
+  }
+  .i-sprite-add-video {
+    background-image: url(/icons/i-sprite.png);
+    background-position: -359px -101px;
+    width: 32px;
+    height: 32px;
   }
 </style>
