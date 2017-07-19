@@ -8,12 +8,12 @@
     </div>
     <div class="post-body">
       <ul class="fields-list">
-        <li class="field" v-for="(field, index) in editor.bodyFields">
-          <div class="field-input" v-if="field.type == 'text'">
-            <medium-editor :text='field.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
+        <li class="field" v-for="(items, index) in editor.bodyItems">
+          <div class="field-input" v-if="items.type == 'text'">
+            <medium-editor :text='items.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
           </div>
-          <div v-if="field.type == 'image'">
-            <img :src="field.value" alt="">
+          <div v-if="items.type == 'image'">
+            <img :src="items.value" alt="">
           </div>
         </li>
       </ul>
@@ -22,7 +22,7 @@
       Тэги
     </div>
     <div class="post-settings">
-      Настройки {{text}}
+      Настройки {{editor}}
     </div>
   </div>
 </template>
@@ -40,13 +40,13 @@
           title: '',
           gameId: '',
           gameTitle: '',
-          bodyFields: [
+          bodyItems: [
             {type: 'text', value: '1'}
           ]
         },
         options: {
           toolbar: {
-            buttons: ['bold', 'strikethrough', 'h1']
+            buttons: ['bold', 'italic', 'strikethrough', 'anchor', 'quote']
           }
         },
         text: ''
@@ -56,7 +56,7 @@
       processEditOperation (operation) {
         console.log(operation);
         // this.editor.bodyFields[0].value = event.event.target.innerText
-        this.editor.bodyFields[0].value = operation.event.srcElement.innerHTML
+        this.editor.bodyItems[0].value = operation.event.srcElement.innerHTML
       }
     }
   }
