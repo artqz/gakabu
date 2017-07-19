@@ -13,7 +13,10 @@
             <medium-editor :id="index" :text='items.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
           </div>
           <div class="item-image" v-if="items.type == 'image'">
-            <img :src="items.value" alt="">
+            <img :src="items.value">
+          </div>
+          <div class="item-vide" v-if="items.type == 'video'">
+            video
           </div>
         </li>
       </ul>
@@ -23,10 +26,8 @@
             <i class="i-sprite-add-text"></i>
           </div>
         </li>
-        <li>
-          <div class="item add-image" @click="addItem('images')" title="Добавить изображение">
-            <i class="i-sprite-add-image"></i>
-          </div>
+        <li>          
+          <image-uploader />
         </li>
         <li>
           <div class="item add-video" @click="addItem('video')" title="Добавить видео">
@@ -39,17 +40,21 @@
       Тэги
     </div>
     <div class="post-settings">
-      Настройки
+      Настройки {{files}}
     </div>
   </div>
 </template>
 
 <script>
   import editor from 'vue2-medium-editor'
+  import FileUpload from 'vue-upload-component'
+  import ImageUploader from '../../components/Posts/Editor/ImageUploader.vue'
 
   export default {
     components: {
-      'medium-editor': editor
+      'medium-editor': editor,
+      'image-uploader': ImageUploader,
+      'file-upload': FileUpload
     },
     data () {
       return {
@@ -62,6 +67,7 @@
             {type: 'image', value: 'http://www.otoina.com/wp-content/uploads/2014/05/Kawasaki-Versys-650.jpg'}
           ]
         },
+        files: [],
         options: {
           toolbar: {
             buttons: [
