@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -18,8 +20,18 @@ export default {
     addImage () {
       this.$refs.image.click()
     },
-    uploadImage (e) {
-      console.log(e);
+    uploadImage (event) {
+      //console.log(event.target.value);
+      this.saveImage(event.target.value)
+    },
+    saveImage (params, error) {
+      // console.log(value)
+      return axios.post('http://localhost:8000/api/v1/file', {
+        value: 'value'
+      })
+      .then((res) => {
+        console.log(res)
+      })
     }
   }
 }

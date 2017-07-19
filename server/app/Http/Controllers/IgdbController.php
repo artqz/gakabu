@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Response;
+use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpFoundation\Request;
 use Unirest;
 
 class IgdbController extends Controller
@@ -22,5 +24,14 @@ class IgdbController extends Controller
             )
         );
         return Response::json($games->body);
+    }
+
+    public function update(Request $request)
+    {
+        $value = $request['value'];
+        $img = Image::make($value);
+
+        //return $img->response('jpg');
+        return Response::json($value);
     }
 }

@@ -26,7 +26,7 @@
             <i class="i-sprite-add-text"></i>
           </div>
         </li>
-        <li>          
+        <li>
           <image-uploader />
         </li>
         <li>
@@ -47,14 +47,12 @@
 
 <script>
   import editor from 'vue2-medium-editor'
-  import FileUpload from 'vue-upload-component'
   import ImageUploader from '../../components/Posts/Editor/ImageUploader.vue'
 
   export default {
     components: {
       'medium-editor': editor,
-      'image-uploader': ImageUploader,
-      'file-upload': FileUpload
+      'image-uploader': ImageUploader
     },
     data () {
       return {

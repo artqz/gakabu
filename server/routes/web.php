@@ -29,7 +29,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => 'csrf'], function () {
     Route::put('/posts/{id}', 'PostsController@edit');
     //Route::patch('api/v1/posts/{id}', 'PostsController@edit');
     Route::delete('/posts/{id}', 'PostsController@delete');
-
     Route::get('/games/{name}', 'IgdbController@show');
     Route::get('/games', 'IgdbController@index');
+    Route::post('/file', 'IgdbController@update');
 });

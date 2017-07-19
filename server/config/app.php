@@ -182,6 +182,9 @@ return [
 
         // barryvdh/laravel-cors
         Barryvdh\Cors\ServiceProvider::class,
+
+        // Images
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -234,6 +237,8 @@ return [
         // Tymon  JWT Auth
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 
