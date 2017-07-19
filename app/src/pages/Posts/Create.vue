@@ -17,17 +17,21 @@
           </div>
         </li>
       </ul>
-      <ul>
-        <li @click="addItem('text')">Добавить текст</li>
-        <li @click="addItem('images')">Добавить изображение</li>
-        <li @click="addItem('video')">Добавить видео</li>
+      <ul class="panel-adding">
+        <li>
+          <div class="item add-text" @click="addItem('text')" title="Добавить текст">
+            <i class="i-sprite-add-text"></i>
+          </div>
+        </li>
+        <li><div class="item add-image" @click="addItem('images')" title="Добавить изображение"></div></li>
+        <li><div class="item add-video" @click="addItem('video')" title="Добавить видео"></div></li>
       </ul>
     </div>
     <div class="post-tags">
       Тэги
     </div>
     <div class="post-settings">
-      Настройки {{editor}}
+      Настройки
     </div>
   </div>
 </template>
@@ -39,9 +43,6 @@
     components: {
       'medium-editor': editor
     },
-    html: {
-      title: '123'
-    },
     data () {
       return {
         editor: {
@@ -49,13 +50,16 @@
           gameId: '',
           gameTitle: '',
           bodyItems: [
-            {type: 'text', value: '1'},
+            {type: 'text', value: ''},
             {type: 'image', value: 'http://www.otoina.com/wp-content/uploads/2014/05/Kawasaki-Versys-650.jpg'}
           ]
         },
         options: {
           toolbar: {
             buttons: ['bold', 'italic', 'strikethrough', 'anchor', 'quote']
+          },
+          placeholder: {
+            text: 'Введите текст'
           }
         }
       }
@@ -115,5 +119,44 @@
   }
   .item .medium-editor-element:focus {
     outline: none;
+  }
+  .item .medium-editor-element blockquote {
+    font-style: italic;
+    color: #8c8681;
+    background: #faf9f4;
+    padding: 9px 5px;
+    border-radius: 2px;
+    border: 0;
+    margin: 0;
+  }
+  .panel-adding {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 0 auto;
+    text-align: center;
+  }
+  .panel-adding li {
+    display: inline-block;
+  }
+  .panel-adding .item {
+    cursor: pointer;
+    position: relative;
+    border: 0;
+    border-radius: 20px;
+    background-color: #bbcadb;
+    padding: 5px;
+    outline: 0;
+    margin-bottom: 20px;
+    margin-right: 15px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 42px;
+    height: 42px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .panel-adding .item:hover {
+    background-color: #a7b8cc;
   }
 </style>

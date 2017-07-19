@@ -50,18 +50,18 @@
     padding-left: 16px;
     width: 220px; }
     .medium-editor-toolbar-form .medium-editor-toolbar-input::-webkit-input-placeholder {
-      color: #757575;
+      color: #f8f5f3;
       color: rgba(248, 245, 243, 0.8); }
     .medium-editor-toolbar-form .medium-editor-toolbar-input:-moz-placeholder {
       /* Firefox 18- */
-      color: #757575;
+      color: #f8f5f3;
       color: rgba(248, 245, 243, 0.8); }
     .medium-editor-toolbar-form .medium-editor-toolbar-input::-moz-placeholder {
       /* Firefox 19+ */
-      color: #757575;
+      color: #f8f5f3;
       color: rgba(248, 245, 243, 0.8); }
     .medium-editor-toolbar-form .medium-editor-toolbar-input:-ms-input-placeholder {
-      color: #757575;
+      color: #f8f5f3;
       color: rgba(248, 245, 243, 0.8); }
   .medium-editor-toolbar-form a {
     color: #ccc;
@@ -78,3 +78,8 @@
 .medium-editor-anchor-preview a {
   color: #ccc;
   text-decoration: none; }
+
+.medium-editor-placeholder:after {
+  font-style: normal;
+  color: #757575;
+}
