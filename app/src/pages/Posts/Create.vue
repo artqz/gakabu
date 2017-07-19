@@ -7,15 +7,20 @@
       Выбор игры
     </div>
     <div class="post-body">
-      <ul class="fields-list">
-        <li class="field" v-for="(items, index) in editor.bodyItems">
-          <div class="field-input" v-if="items.type == 'text'">
-            <medium-editor :text='items.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
+      <ul class="items-list">
+        <li class="item" v-for="(items, index) in editor.bodyItems">
+          <div class="item-input" v-if="items.type == 'text'">
+            <medium-editor :id="index" :text='items.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
           </div>
           <div v-if="items.type == 'image'">
             <img :src="items.value" alt="">
           </div>
         </li>
+      </ul>
+      <ul>
+        <li @click="addItem('text')">Добавить текст</li>
+        <li @click="addItem('images')">Добавить изображение</li>
+        <li @click="addItem('video')">Добавить видео</li>
       </ul>
     </div>
     <div class="post-tags">
@@ -34,6 +39,9 @@
     components: {
       'medium-editor': editor
     },
+    html: {
+      title: '123'
+    },
     data () {
       return {
         editor: {
@@ -41,27 +49,71 @@
           gameId: '',
           gameTitle: '',
           bodyItems: [
-            {type: 'text', value: '1'}
+            {type: 'text', value: '1'},
+            {type: 'image', value: 'http://www.otoina.com/wp-content/uploads/2014/05/Kawasaki-Versys-650.jpg'}
           ]
         },
         options: {
           toolbar: {
             buttons: ['bold', 'italic', 'strikethrough', 'anchor', 'quote']
           }
-        },
-        text: ''
+        }
       }
     },
     methods: {
+      addItem (type) {
+        if (type == 'text') {
+          console.log(type)
+          this.editor.bodyItems.push({type: 'text', value: ''})
+        }
+      },
       processEditOperation (operation) {
-        console.log(operation);
-        // this.editor.bodyFields[0].value = event.event.target.innerText
-        this.editor.bodyItems[0].value = operation.event.srcElement.innerHTML
+        var itemId = operation.event.target.id
+        this.editor.bodyItems[itemId].value = operation.event.srcElement.innerHTML
       }
     }
   }
 </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.22.1/css/medium-editor.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.22.1/css/themes/flat.css">
-<style>
+
+<style media="screen">
+  #post-create {
+    width: 600px;
+  }
+  .post-body {
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    border-radius: 2px;
+  }
+  .items-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .item-input {
+    padding: 7px 15px;
+  }
+  .item .medium-editor-element {
+    background: url(/images/elements/line-text-bg.png);
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    width: 100%;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    min-height: 20px;
+    overflow: hidden;
+    line-height: 18px;
+    font-size: 13px;
+  }
+  .item .medium-editor-element p {
+
+  }
+  .item .medium-editor-element:focus {
+    outline: none;
+  }
 </style>
