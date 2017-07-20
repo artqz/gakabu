@@ -8,12 +8,13 @@
     </div>
     <div class="post-body">
       <ul class="items-list">
-        <li class="item" v-for="(items, index) in editor.bodyItems">
+        <li :class="'item-'+index" v-for="(items, index) in editor.bodyItems">
           <div class="item-text" v-if="items.type == 'text'">
             <medium-editor :id="index" :text='items.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
           </div>
           <div class="item-image" v-if="items.type == 'image'">
-            <img :src="items.value">
+            <img :id="index" :src="items.value" v-if="items.uploaded">
+            <canvas :ref="'canvas-'+index" width="600" height="300"></canvas>
           </div>
           <div class="item-vide" v-if="items.type == 'video'">
             video
@@ -27,7 +28,7 @@
           </div>
         </li>
         <li>
-          <image-uploader />
+          <image-uploader :itemId="editor.bodyItems.length" v-on:uploadImage="uploadImage" />
         </li>
         <li>
           <div class="item add-video" @click="addItem('video')" title="Добавить видео">
@@ -40,7 +41,7 @@
       Тэги
     </div>
     <div class="post-settings">
-      Настройки {{files}}
+      Настройки {{editor}}
     </div>
   </div>
 </template>
@@ -62,7 +63,7 @@
           gameTitle: '',
           bodyItems: [
             {type: 'text', value: ''},
-            {type: 'image', value: 'http://www.otoina.com/wp-content/uploads/2014/05/Kawasaki-Versys-650.jpg'}
+            {type: 'image', uploaded: true, value: 'http://127.0.0.1:8000/images/1500530696_5970480876c30.gif'}
           ]
         },
         files: [],
@@ -85,13 +86,40 @@
     methods: {
       addItem (type) {
         if (type == 'text') {
-          console.log(type)
           this.editor.bodyItems.push({type: 'text', value: ''})
         }
       },
       processEditOperation (operation) {
         var itemId = operation.event.target.id
         this.editor.bodyItems[itemId].value = operation.event.srcElement.innerHTML
+      },
+      uploadImage (image) {
+        this.editor.bodyItems.push({
+          type: 'image',
+          uploaded: false,
+          value: image.value,
+          canvas: image.canvas,
+          error: false
+        })
+        this.$nextTick(function () {
+          var canvasId = 'canvas-'+image.id
+          console.log(this.$refs[canvasId])
+        })
+        /*
+        this.editor.bodyItems.push({
+          type: 'image',
+          uploaded: false,
+          value: image.value,
+          canvas: image.canvas,
+          error: false
+        }).bind((res) => {
+          console.log(1);
+        })
+        */
+        //console.log(this.editor.bodyItems);
+        //console.log(image.id);
+        //var canvasId = 'canvas-'+2
+        //console.log(this.$refs[canvasId]);
       }
     }
   }
@@ -204,5 +232,29 @@
     background-position: -359px -101px;
     width: 32px;
     height: 32px;
+  }
+  .image-loading {
+    width: 100%;
+    background-color: #bbcadb;
+    line-height: 100px;
+    min-height: 100px;
+    text-align: center;
+  }
+  .image-loading .error {
+    color: #65707d;
+  }
+  .image-loading .icon {
+    width: 100%;
+    min-height: 100px;
+    background-image: url('/icons/image.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 68px, 68px;
+    opacity: 1;
+    animation: opacity 3s infinite;
+  }
+  @keyframes opacity {
+    0%, 100%    { opacity: 1; }
+    50%   { opacity: .5; }
   }
 </style>
