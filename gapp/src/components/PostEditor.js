@@ -25,12 +25,17 @@ class PostEditor extends Component {
   state = {
     items: [
       {type: 'text', value: ''},
+      {type: 'image', value: ''},
       {type: 'text', value: ''}
     ]
   }
-  handleChange(text, e) {
-    var self = this
-    self.state.items[e.id-1].value = text
+  handleChange(index, text) {
+    const items = this.state.items
+
+    items[index].value = text
+    this.setState({
+      items: items
+    })
   }
   render() {
     var items = this.state.items
@@ -41,7 +46,7 @@ class PostEditor extends Component {
               <Editor
                 text={item.value}
                 options={this.props.options}
-                onChange={this.handleChange.bind(this)}
+                onChange={this.handleChange.bind(this, index)}
               />
             </div>
           )
