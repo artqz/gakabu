@@ -70,6 +70,7 @@ export default {
         this.$emit('uploadItemImage', {
           type: 'update',
           itemId: (this.itemId - 1),
+          preview: false,
           url: res.data
         })
       })

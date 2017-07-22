@@ -13,7 +13,7 @@
             <medium-editor :id="index" :text='item.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
           </div>
           <div :ref="'itemImage-'+item.id" class="item-image" v-if="item.type == 'image'">
-            <div class="item-preview"></div>
+            <div class="item-preview" v-if="item.preview"></div>
             <img :src="item.url">
           </div>
           <div class="item-video" v-if="item.type == 'video'">
@@ -117,6 +117,7 @@
         else if (item.type == 'update') {
           console.log(this.editor.bodyItems[item.itemId]);
           this.editor.bodyItems[item.itemId].url = item.url
+          this.editor.bodyItems[item.itemId].preview = item.preview
         }
       }
     }
@@ -164,7 +165,7 @@
   .item-image img {
     position: absolute;
     top: 0;
-    left: 0;  
+    left: 0;
   }
   .item {
     margin-bottom: 0;
