@@ -3,24 +3,20 @@ import React, { Component } from 'react'
 import PostEditor from '../../components/PostEditor'
 
 class Create extends Component {
-  static defaultProps = {
+  state = {
     editor: {
       title: '',
       gameId: '',
       gameTitle: '',
-      items: [
-        {type: 'text', value: ''},
-        {type: 'image', value: '123'}
-      ]
+      items: []
     }
   }
 
   render() {
-    var items = this.props.editor.items
 
     return (
       <div>
-        <PostEditor items={items} />
+        <PostEditor />
       </div>
     )
   }

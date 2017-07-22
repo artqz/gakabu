@@ -22,13 +22,27 @@ class PostEditor extends Component {
     }
   }
 
+  state = {
+    items: [
+      {type: 'text', value: ''},
+      {type: 'text', value: ''}
+    ]
+  }
+  handleChange(text, e) {
+    var self = this
+    self.state.items[e.id-1].value = text
+  }
   render() {
-    var items = this.props.items
+    var items = this.state.items
       .map((item, index) => {
         if (item.type === 'text') {
           return (
             <div key={index}>
-              <Editor options={this.props.options} />
+              <Editor
+                text={item.value}
+                options={this.props.options}
+                onChange={this.handleChange.bind(this)}
+              />
             </div>
           )
         }
