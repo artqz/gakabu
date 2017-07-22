@@ -12,10 +12,11 @@
           <div class="item-text" v-if="item.type == 'text'">
             <medium-editor :id="index" :text='item.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
           </div>
-          <div class="item-image" v-if="item.type == 'image'">
-            <img :src="item.preview" alt="">
+          <div :ref="'itemImage-'+item.id" class="item-image" v-if="item.type == 'image'">
+            <div class="item-preview1"></div>
+            <img :src="item.preview" :alt="'Картинка к посту ' + editor.title + '# ' + item.id">
           </div>
-          <div class="item-vide" v-if="item.type == 'video'">
+          <div class="item-video" v-if="item.type == 'video'">
             video
           </div>
         </li>
@@ -27,7 +28,7 @@
           </div>
         </li>
         <li>
-          <image-uploader :itemId="Date.now()" @addItemImage="addItemImage" @uploadItemImage="uploadItemImage" />
+          <image-uploader :itemId="editor.bodyItems.length" @addItemImage="addItemImage" @uploadItemImage="uploadItemImage" />
         </li>
         <li>
           <div class="item add-video" @click="addItem('video')" title="Добавить видео">
@@ -102,17 +103,10 @@
         this.editor.bodyItems.push({type: 'image', id: itemId, url: '', preview: ''})
       },
       uploadItemImage (item) {
+        var itemImageRef = 'itemImage-' + item.itemId
+        console.log(this.$refs[itemImageRef][0]);
+        this.editor.bodyItems[item.itemId].preview = item.preview
         console.log(item);
-        var itemId = item.itemId
-        var test = this.editor.bodyItems.filter((item) => {
-          //console.log(item.id.match(itemId));
-          return item.id == itemId
-        })
-        var reader = new FileReader();
-        reader.onload = (e) => {
-          test[0].preview = e.target.result
-        }
-        reader.readAsDataURL(item.file)
       }
     }
   }
@@ -145,6 +139,14 @@
   }
   .item-image {
     position: relative;
+  }
+  .item-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: grey;
   }
   .item {
     margin-bottom: 0;
@@ -228,29 +230,5 @@
     background-position: -359px -101px;
     width: 32px;
     height: 32px;
-  }
-  .image-loading {
-    width: 100%;
-    background-color: #bbcadb;
-    line-height: 100px;
-    min-height: 100px;
-    text-align: center;
-  }
-  .image-loading .error {
-    color: #65707d;
-  }
-  .image-loading .icon {
-    width: 100%;
-    min-height: 100px;
-    background-image: url('/icons/image.png');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 68px, 68px;
-    opacity: 1;
-    animation: opacity 3s infinite;
-  }
-  @keyframes opacity {
-    0%, 100%    { opacity: 1; }
-    50%   { opacity: .5; }
   }
 </style>

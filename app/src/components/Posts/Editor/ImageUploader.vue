@@ -37,10 +37,9 @@ export default {
 
       reader.onload = (e) => {
         this.image = e.target.result
-        let [, base64] = this.image.split(',')
         this.$emit('uploadItemImage', {
           itemId: this.id,
-          file: file
+          preview: this.image
         })
       }
       reader.readAsDataURL(file)
