@@ -35,6 +35,7 @@ export default {
       var reader = new FileReader();
 
       reader.onload = (e) => {
+        this.image = e.target.result
         image.onload = () => {
           if (image.width > 600) {
             var width = 600;
