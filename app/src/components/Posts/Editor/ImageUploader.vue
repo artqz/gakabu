@@ -70,13 +70,13 @@ export default {
         this.$emit('uploadItemImage', {
           type: 'update',
           itemId: (this.itemId - 1),
-          preview: false,
+          preview: null,
           url: res.data
         })
       })
       .catch((error) => {
         console.log(1);
-        this.$emit('uploadImage', {id: (this.itemId - 1), value: null, error: true})
+        //this.$emit('uploadImage', {id: (this.itemId - 1), value: null, error: true})
       });
     }
   }

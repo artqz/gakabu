@@ -13,7 +13,7 @@
             <medium-editor :id="index" :text='item.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
           </div>
           <div :ref="'itemImage-'+item.id" class="item-image" v-if="item.type == 'image'">
-            <div class="item-preview" v-if="item.preview"></div>
+            <div class="item-preview" v-show="item.preview"></div>
             <img :src="item.url">
           </div>
           <div class="item-video" v-if="item.type == 'video'">
@@ -107,6 +107,7 @@
       },
       uploadItemImage (item) {
         if (item.type == 'create') {
+          console.log(item);
           var itemImageRef = 'itemImage-' + item.itemId
           this.$refs[itemImageRef][0].style.width = item.preview.width + 'px'
           this.$refs[itemImageRef][0].style.height = item.preview.height + 'px'
@@ -117,7 +118,7 @@
         else if (item.type == 'update') {
           console.log(this.editor.bodyItems[item.itemId]);
           this.editor.bodyItems[item.itemId].url = item.url
-          this.editor.bodyItems[item.itemId].preview = item.preview
+          this.editor.bodyItems[item.itemId].preview = false
         }
       }
     }
