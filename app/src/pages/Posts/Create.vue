@@ -13,8 +13,8 @@
             <medium-editor :id="index" :text='item.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
           </div>
           <div :ref="'itemImage-'+item.id" class="item-image" v-if="item.type == 'image'">
-            <div class="item-preview1"></div>
-            <img :src="item.preview" :alt="'Картинка к посту ' + editor.title + '# ' + item.id">
+            <div class="item-preview"></div>
+            <img :src="title">
           </div>
           <div class="item-video" v-if="item.type == 'video'">
             video
@@ -104,7 +104,9 @@
       },
       uploadItemImage (item) {
         var itemImageRef = 'itemImage-' + item.itemId
-        console.log(this.$refs[itemImageRef][0]);
+        this.$refs[itemImageRef][0].style.width = item.preview.width + 'px'
+        this.$refs[itemImageRef][0].style.height = item.preview.height + 'px'
+        this.$refs[itemImageRef][0].style.backgroundImage = 'url(' + item.preview.base64 + ')'
         this.editor.bodyItems[item.itemId].preview = item.preview
         console.log(item);
       }
@@ -146,7 +148,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: grey;
+    background-color: #d6dae0;
+    background-image: url('/icons/image.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 68px, 68px;
   }
   .item {
     margin-bottom: 0;

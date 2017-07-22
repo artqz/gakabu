@@ -33,14 +33,27 @@ export default {
     createImage(file) {
       var image = new Image();
       var reader = new FileReader();
-      var vm = this;
 
       reader.onload = (e) => {
-        this.image = e.target.result
-        this.$emit('uploadItemImage', {
-          itemId: this.id,
-          preview: this.image
-        })
+        image.onload = () => {
+          if (image.width > 600) {
+            var width = 600;
+            var height = Math.round(image.height/(image.width/width))
+          }
+          else {
+            var width = image.width
+            var height = image.height
+          }
+          this.$emit('uploadItemImage', {
+            itemId: this.id,
+            preview: {
+              base64: e.target.result,
+              width: width,
+              height: height
+            }
+          })
+        }
+        image.src = e.target.result
       }
       reader.readAsDataURL(file)
 
