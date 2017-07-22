@@ -14,7 +14,7 @@
           </div>
           <div :ref="'itemImage-'+item.id" class="item-image" v-if="item.type == 'image'">
             <div class="item-preview"></div>
-            <img :src="title">
+            <img :src="item.url">
           </div>
           <div class="item-video" v-if="item.type == 'video'">
             video
