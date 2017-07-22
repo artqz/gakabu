@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="image-uploader">
-    <div class="item add-image" @click="addImage" title="Добавить изображение">
+    <div class="item add-image" @click="addItemImage" title="Добавить изображение">
       <i class="i-sprite-add-image"></i>
     </div>
-    <input ref="image" type="file" name="image" class="image-input" accept="image/*" @change="uploadImage">
+    <input ref="image" type="file" name="image" class="image-input" accept="image/*" @change="uploadItemImage">
   </div>
 </template>
 
@@ -13,16 +13,18 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      image: ''
+      image: '',
+      id: ''
     }
   },
   props: ['itemId'],
   methods: {
-    addImage () {
+    addItemImage () {
+      this.id = this.itemId
       this.$refs.image.click()
-      this.$emit('addImage', null)
     },
-    uploadImage (event) {
+    uploadItemImage (event) {
+      this.$emit('addItemImage', this.id)
       var files = event.target.files || event.dataTransfer.files
       if (!files.length)
          return
@@ -36,37 +38,10 @@ export default {
       reader.onload = (e) => {
         this.image = e.target.result
         let [, base64] = this.image.split(',')
-        this.$emit('uploadImage', {
-          base64: base64
+        this.$emit('uploadItemImage', {
+          itemId: this.id,
+          file: file
         })
-        /*
-        console.log(this);
-        image.onload = () => {
-          if (image.width > 600) {
-            var width = 600;
-            var height = Math.round(image.height/(image.width/width))
-          }
-          else {
-            var width = image.width
-            var height = image.height
-          }
-          this.$emit('uploadImage', {id: this.itemId, width: width, height: height, canvas: image, uploaded: false, error: false})
-        }
-        */
-        image.src = e.target.result
-        //vm.saveImage(vm.image)
-
-      /*
-      reader.onload = (e) => {
-        vm.image = e.target.result
-        this.$emit('uploadImage', {
-          id: this.itemId,
-          value: vm.image,
-          canvas: vm.image,
-          error: false
-        })
-        */
-        //
       }
       reader.readAsDataURL(file)
 

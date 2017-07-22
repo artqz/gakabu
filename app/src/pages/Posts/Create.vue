@@ -8,18 +8,14 @@
     </div>
     <div class="post-body">
       <ul class="items-list">
-        <li :class="'item-'+index" :ref="'item-'+index" v-for="(items, index) in editor.bodyItems">
-          <div class="item-text" v-if="items.type == 'text'">
-            <medium-editor :id="index" :text='items.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
+        <li class="item" :ref="'item-'+index" v-for="(item, index) in editor.bodyItems">
+          <div class="item-text" v-if="item.type == 'text'">
+            <medium-editor :id="index" :text='item.value' :options="options" custom-tag='div' v-on:edit='processEditOperation' />
           </div>
-          <div class="item-image" v-if="items.type == 'image'">
-            <img :ref="'img-'+items.imageId">
-            {{items}}
-            <div :id="index+'-'+items.imageId" @click="deleteItem">
-              удалить
-            </div>
+          <div class="item-image" v-if="item.type == 'image'">
+            <img :src="item.preview" alt="">
           </div>
-          <div class="item-vide" v-if="items.type == 'video'">
+          <div class="item-vide" v-if="item.type == 'video'">
             video
           </div>
         </li>
@@ -31,7 +27,7 @@
           </div>
         </li>
         <li>
-          <image-uploader :itemId="editor.indexItems" v-on:uploadImage="uploadImage" />
+          <image-uploader :itemId="Date.now()" @addItemImage="addItemImage" @uploadItemImage="uploadItemImage" />
         </li>
         <li>
           <div class="item add-video" @click="addItem('video')" title="Добавить видео">
@@ -44,6 +40,7 @@
       Тэги
     </div>
     <div class="post-settings">
+      <img :src="image" alt="">
       Настройки {{editor}}
     </div>
   </div>
@@ -60,16 +57,15 @@
     },
     data () {
       return {
+        image: '',
         editor: {
           title: '',
           gameId: '',
           gameTitle: '',
-          indexItems: 1,
           bodyItems: [
-            {type: 'text', value: ''}
+            {type: 'text', id: Date.now(), value: ''}
           ]
         },
-        files: [],
         options: {
           toolbar: {
             buttons: [
@@ -94,68 +90,29 @@
       },
       addItem (type) {
         if (type == 'text') {
-          this.editor.bodyItems.push({type: 'text', value: ''})
+          this.editor.bodyItems.push({type: 'text', id: Date.now(), value: ''})
         }
       },
       processEditOperation (operation) {
         var itemId = operation.event.target.id
         this.editor.bodyItems[itemId].value = operation.event.srcElement.innerHTML
       },
-      uploadImage (image) {
-          console.log(image)
-          this.editor.bodyItems.push({
-            type: 'image',
-            value: image,
-          })
-        /*
-        console.log(image);
-        if (!image.uploaded && !image.error) {
-          this.editor.indexItems += 1
-          this.editor.bodyItems.push({
-            type: 'image',
-            imageId: image.id,
-            uploaded: false,
-            value: 1,
-            convas: image,
-            error: false
-          })
-
-          this.$nextTick(function () {
-            var imgId = 'img-' + image.id
-            var img = this.$refs[imgId][0]
-            img.setAttribute('src', image.canvas.src);
-            /*
-            var canvasId = 'canvas-' + image.id
-            var canvas = this.$refs[canvasId][0]
-            var ctx = canvas.getContext("2d");
-
-            canvas.width = image.width
-            canvas.height = image.height
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(image.canvas, 0, 0, image.width, image.height);
-            ctx.save();
-
-          })
-        }
-        else if (image.uploaded && !image.error) {
-          this.editor.bodyItems[image.id].value = image.value
-          this.editor.bodyItems[image.id].uploaded = image.uploaded
-        }
-        /*
-        this.editor.bodyItems.push({
-          type: 'image',
-          uploaded: false,
-          value: image.value,
-          canvas: image.canvas,
-          error: false
-        }).bind((res) => {
-          console.log(1);
+      addItemImage (itemId) {
+        console.log(itemId);
+        this.editor.bodyItems.push({type: 'image', id: itemId, url: '', preview: ''})
+      },
+      uploadItemImage (item) {
+        console.log(item);
+        var itemId = item.itemId
+        var test = this.editor.bodyItems.filter((item) => {
+          //console.log(item.id.match(itemId));
+          return item.id == itemId
         })
-        */
-        //console.log(this.editor.bodyItems);
-        //console.log(image.id);
-        //var canvasId = 'canvas-'+2
-        //console.log(this.$refs[canvasId]);
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          test[0].preview = e.target.result
+        }
+        reader.readAsDataURL(item.file)
       }
     }
   }

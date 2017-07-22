@@ -1,0 +1,4 @@
+
+You just created an Ethereum account: 0xbed74c550FFE7887300f528cE38Bc9075bf74672
+
+Please BACKUP the private key for this account: 41498aca4d32c87b41231b1d9b6857b75e38ea7d050cb64131d8d5118021a951
