@@ -161,6 +161,11 @@
     filter: blur(4px);
     opacity: .8;
   }
+  .item-image img {
+    position: absolute;
+    top: 0;
+    left: 0;  
+  }
   .item {
     margin-bottom: 0;
   }
