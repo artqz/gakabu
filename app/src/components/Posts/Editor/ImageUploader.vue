@@ -69,7 +69,7 @@ export default {
         console.log(res);
         this.$emit('uploadItemImage', {
           type: 'update',
-          id: (this.itemId - 1),
+          itemId: (this.itemId - 1),
           url: res.data
         })
       })
