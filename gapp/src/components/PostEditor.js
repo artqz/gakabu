@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Editor from 'react-medium-editor'
 
+import ImageUploader from './ImageUploader'
+
 import './Editor.css'
 
 class PostEditor extends Component {
@@ -29,10 +31,18 @@ class PostEditor extends Component {
       {type: 'text', value: ''}
     ]
   }
-  handleChange(index, text) {
+  handleTextChange(index, text) {
     const items = this.state.items
 
     items[index].value = text
+    this.setState({
+      items: items
+    })
+  }
+  addItemText () {
+    const items = this.state.items
+
+    items.push({type: 'text', value: ''})
     this.setState({
       items: items
     })
@@ -46,7 +56,7 @@ class PostEditor extends Component {
               <Editor
                 text={item.value}
                 options={this.props.options}
-                onChange={this.handleChange.bind(this, index)}
+                onChange={this.handleTextChange.bind(this, index)}
               />
             </div>
           )
@@ -69,6 +79,11 @@ class PostEditor extends Component {
     return (
       <div>
         {items}
+        <ul>
+          <li onClick={this.addItemText.bind(this)}>Добавить текст</li>
+          <li><ImageUploader  /></li>
+          <li>Добавить видео</li>
+        </ul>
       </div>
     );
   }
