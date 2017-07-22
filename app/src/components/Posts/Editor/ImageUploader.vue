@@ -67,7 +67,10 @@ export default {
       })
       .then((res) => {
         console.log(res);
-        this.$emit('uploadImage', {type: 'update', id: (this.itemId - 1), url: res.data})
+        this.$emit('uploadItemImage', {
+          type: 'update',
+          id: (this.itemId - 1),
+          url: res.data})
       })
       .catch((error) => {
         console.log(1);
