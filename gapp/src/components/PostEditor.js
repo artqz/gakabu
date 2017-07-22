@@ -39,7 +39,7 @@ class PostEditor extends Component {
             </div>
           )
         }
-        else if (item.type === 'video') {
+        else {
           return (
             <div key={index}>
               img
