@@ -70,7 +70,8 @@ export default {
         this.$emit('uploadItemImage', {
           type: 'update',
           id: (this.itemId - 1),
-          url: res.data})
+          url: res.data
+        })
       })
       .catch((error) => {
         console.log(1);

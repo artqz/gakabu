@@ -115,6 +115,7 @@
           this.editor.bodyItems[item.itemId].preview = true
         }
         else if (item.type == 'update') {
+          console.log(item);
           this.editor.bodyItems[item.itemId].url = item.url
         }
       }
