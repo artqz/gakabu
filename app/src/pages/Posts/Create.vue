@@ -19,6 +19,9 @@
           <div class="item-video" v-if="item.type == 'video'">
             video
           </div>
+          <div :id="index" @click="deleteItem">
+            delete
+          </div>
         </li>
       </ul>
       <ul class="panel-adding">
@@ -85,7 +88,7 @@
     },
     methods: {
       deleteItem () {
-        var itemId = event.target.id.split('-')[0]
+        var itemId = event.target.id
 
         this.editor.bodyItems.splice(itemId, 1)
       },
@@ -100,15 +103,20 @@
       },
       addItemImage (itemId) {
         console.log(itemId);
-        this.editor.bodyItems.push({type: 'image', id: itemId, url: '', preview: ''})
+        this.editor.bodyItems.push({type: 'image', id: itemId, url: '', preview: false})
       },
       uploadItemImage (item) {
-        var itemImageRef = 'itemImage-' + item.itemId
-        this.$refs[itemImageRef][0].style.width = item.preview.width + 'px'
-        this.$refs[itemImageRef][0].style.height = item.preview.height + 'px'
-        this.$refs[itemImageRef][0].style.backgroundImage = 'url(' + item.preview.base64 + ')'
-        this.editor.bodyItems[item.itemId].preview = item.preview
-        console.log(item);
+        if (item.type == 'create') {
+          var itemImageRef = 'itemImage-' + item.itemId
+          this.$refs[itemImageRef][0].style.width = item.preview.width + 'px'
+          this.$refs[itemImageRef][0].style.height = item.preview.height + 'px'
+          this.$refs[itemImageRef][0].firstChild.style.backgroundImage = 'url(' + item.preview.base64 + ')'
+          this.$refs[itemImageRef][0].firstChild.style.backgroundSize = item.preview.width + 'px, ' + item.preview.height + 'px'
+          this.editor.bodyItems[item.itemId].preview = true
+        }
+        else if (item.type == 'update') {
+          this.editor.bodyItems[item.itemId].url = item.url
+        }
       }
     }
   }
@@ -141,6 +149,7 @@
   }
   .item-image {
     position: relative;
+    overflow:hidden
   }
   .item-preview {
     position: absolute;
@@ -148,11 +157,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #d6dae0;
-    background-image: url('/icons/image.png');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 68px, 68px;
+    filter: blur(4px);
+    opacity: .8;
   }
   .item {
     margin-bottom: 0;

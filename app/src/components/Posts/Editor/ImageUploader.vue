@@ -45,6 +45,7 @@ export default {
             var height = image.height
           }
           this.$emit('uploadItemImage', {
+            type: 'create',
             itemId: this.id,
             preview: {
               base64: e.target.result,
@@ -64,7 +65,7 @@ export default {
       })
       .then((res) => {
         console.log(1);
-        this.$emit('uploadImage', {id: (this.itemId - 1), value: res.data, error: false, uploaded: true})
+        this.$emit('uploadImage', {type: 'update', id: (this.itemId - 1), url: res.data})
       })
       .catch((error) => {
         console.log(1);
