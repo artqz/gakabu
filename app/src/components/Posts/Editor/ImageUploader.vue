@@ -54,14 +54,15 @@ export default {
             }
           })
         }
+        this.saveImage()
         image.src = e.target.result
       }
       reader.readAsDataURL(file)
 
     },
-    saveImage (image) {
+    saveImage () {
       return axios.post('http://localhost:8000/api/v1/file', {
-        image: image
+        image: this.image
       })
       .then((res) => {
         console.log(1);
