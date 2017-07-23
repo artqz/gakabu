@@ -15,7 +15,7 @@ class ImageUploader extends Component {
   }
 
   handleImageChange (event) {
-    const file = event.target.files[0]
+    var file = event.target.files[0]
     var reader = new FileReader()
     var image = new Image()
 
@@ -42,7 +42,6 @@ class ImageUploader extends Component {
             height: height
           }
         })
-
         this.props.onChange(this.state.image)
       }
       image.src = reader.result
@@ -56,7 +55,7 @@ class ImageUploader extends Component {
     return (
       <div className="item add-image" onClick={this.selectImage.bind(this)}>
         <i className="i-sprite-add-image"></i>
-        <input type="file" name="image" accept="image/*"
+        <input type="file" name="image" accept="image/*" multiple
           onChange={this.handleImageChange.bind(this)}
           ref="inputImage"
           value={this.state.value}
