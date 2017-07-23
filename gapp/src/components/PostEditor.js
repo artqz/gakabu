@@ -40,19 +40,28 @@ class PostEditor extends Component {
   }
   handleImageChange(image) {
     const items = this.state.items
-    console.log(image);
-    items.push({
-      type: 'image',
-      preview: image.preview,
-      width: image.width,
-      height: image.height,
-      url: image.url,
-      animation: image.animation,
-    })
+
+    if (image.preview) {
+      items.push({
+        type: 'image',
+        base64: image.base64,
+        width: image.width,
+        height: image.height,
+        url: image.url,
+        animation: image.animation,
+        preview: image.preview,
+        index: image.index
+      })
+    }
+    else {
+      items[image.index].url = image.url
+      items[image.index].preview = image.preview
+    }
 
     this.setState({
       items: items
     })
+    console.log(this.state.items);
   }
   addItemText () {
     const items = this.state.items
@@ -79,7 +88,7 @@ class PostEditor extends Component {
         else if (item.type === 'image') {
           return (
             <li className="item-image" key={index}>
-              <img src={item.preview} alt={Date.now()} width={item.width} height={item.height} />
+              <img src={item.base64} alt={Date.now()} width={item.width} height={item.height} />
             </li>
           )
         }
@@ -91,7 +100,7 @@ class PostEditor extends Component {
           )
         }
     })
-    console.log(this.state.items)
+    console.log(this.state.items.length)
     return (
       <div className="post-editor">
         <ul className="items-list">{items}</ul>
@@ -99,7 +108,7 @@ class PostEditor extends Component {
           <li className="item add-text" onClick={this.addItemText.bind(this)}>
             <i className="i-sprite-add-text"></i>
           </li>
-          <li><ImageUploader onChange={this.handleImageChange.bind(this)} /></li>
+          <li><ImageUploader index={this.state.items.length} onChange={this.handleImageChange.bind(this)} /></li>
           <li className="item add-video"><i className="i-sprite-add-video"></i></li>
         </ul>
       </div>

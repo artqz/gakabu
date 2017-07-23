@@ -6,11 +6,13 @@ class ImageUploader extends Component {
   state = {
     value: '',
     image: {
-      preview: '',
+      base64: '',
       width: '',
       height: '',
       url: '',
-      animation: false
+      animation: false,
+      preview: true,
+      index: this.props.index
     }
   }
 
@@ -37,11 +39,13 @@ class ImageUploader extends Component {
         this.setState({
           value: '',
           image: {
-            preview: reader.result,
+            base64: reader.result,
             width: width,
             height: height,
             animation: false,
-            url: ''
+            url: '',
+            preview: true,
+            index: this.state.image.index
           }
         })
         this.props.onChange(this.state.image)
@@ -57,7 +61,7 @@ class ImageUploader extends Component {
   }
 
   saveImage () {
-    console.log(this.state.image.preview);
+
     fetch('http://127.0.0.1:8000/api/v1/file', {
       headers: {
         'Accept': 'application/json',
@@ -65,18 +69,19 @@ class ImageUploader extends Component {
       },
       method: 'POST',
       body: JSON.stringify({
-        image: this.state.image.preview
+        image: this.state.image.base64
       })
     })
-      .then(function(res){ return res.json(); })
-      .then(function(data){
-        console.log(this);
+      .then((res) => { return res.json(); })
+      .then((data) => {
         this.setState({
           image: {
-            url: 1
+            ...this.state.image,
+            url: JSON.stringify(data),
+            preview: false
           }
         })
-        alert( JSON.stringify( data ) )
+        this.props.onChange(this.state.image)
       })
   }
 
