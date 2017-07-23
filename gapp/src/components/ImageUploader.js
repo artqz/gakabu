@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import './ImageUploader.css'
 
-class Create extends Component {
+class ImageUploader extends Component {
   state = {
     value: '',
     image: {
@@ -66,4 +66,4 @@ class Create extends Component {
   }
 }
 
-export default Create;
+export default ImageUploader;
