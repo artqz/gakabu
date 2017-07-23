@@ -85,3 +85,33 @@
   font-style: normal;
   color: #757575;
 }
+
+  .medium-editor-element {
+    background: url(/images/elements/line-text-bg.png);
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    width: 100%;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    min-height: 20px;
+    overflow: hidden;
+    line-height: 18px;
+    font-size: 13px;
+  }
+  .medium-editor-element p {
+    padding: 0;
+    margin: 0;
+  }
+  .medium-editor-element:focus {
+    outline: none;
+  }
+  .medium-editor-element blockquote {
+    font-style: italic;
+    color: #8c8681;
+    background: #faf9f4;
+    padding: 9px 5px;
+    border-radius: 2px;
+    border: 0;
+    margin: 0;
+  }

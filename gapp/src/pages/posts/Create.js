@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import PostEditor from '../../components/PostEditor'
+import './Create.css'
 
 class Create extends Component {
   state = {
@@ -16,7 +17,9 @@ class Create extends Component {
 
     return (
       <div>
-        <PostEditor />
+        <div className="container">
+          <PostEditor />
+        </div>
       </div>
     )
   }

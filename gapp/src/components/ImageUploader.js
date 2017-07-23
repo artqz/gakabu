@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import './ImageUploader.css'
+
 class Create extends Component {
   state = {
     imageFile: null,
@@ -14,15 +16,15 @@ class Create extends Component {
         file: file,
         imagePreview: reader.result
       });
+      this.props.onChange(reader.result)
     }
     reader.readAsDataURL(file)
   }
   render() {
     return (
-      <div>
-        Добавить картинку
+      <div className="image-uploader">
+        <i className="i-sprite-add-image"></i>
         <input type="file" name="image" accept="image/*" onChange={this.handleImageChange.bind(this)} />
-        <img src={this.state.imagePreview} alt="1" />
       </div>
     )
   }
