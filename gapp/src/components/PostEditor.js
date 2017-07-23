@@ -40,8 +40,16 @@ class PostEditor extends Component {
   }
   handleImageChange(image) {
     const items = this.state.items
+    console.log(image);
+    items.push({
+      type: 'image',
+      preview: image.preview,
+      width: image.width,
+      height: image.height,
+      url: image.url,
+      animation: image.animation,
+    })
 
-    items.push({type: 'image', value: image})
     this.setState({
       items: items
     })
@@ -71,7 +79,7 @@ class PostEditor extends Component {
         else if (item.type === 'image') {
           return (
             <li className="item-image" key={index}>
-              <img src={item.value} alt={Date.now()} />
+              <img src={item.preview} alt={Date.now()} width={item.width} height={item.height} />
             </li>
           )
         }
@@ -91,7 +99,7 @@ class PostEditor extends Component {
           <li className="item add-text" onClick={this.addItemText.bind(this)}>
             <i className="i-sprite-add-text"></i>
           </li>
-          <li className="item add-image"><ImageUploader onChange={this.handleImageChange.bind(this)} /></li>
+          <li><ImageUploader onChange={this.handleImageChange.bind(this)} /></li>
           <li className="item add-video"><i className="i-sprite-add-video"></i></li>
         </ul>
       </div>

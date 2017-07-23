@@ -4,27 +4,63 @@ import './ImageUploader.css'
 
 class Create extends Component {
   state = {
-    imageFile: null,
-    imagePreview: null
+    value: '',
+    image: {
+      preview: '',
+      width: '',
+      height: '',
+      url: '',
+      animation: false
+    }
   }
+
   handleImageChange (event) {
     const file = event.target.files[0]
-    let reader = new FileReader();
+    var reader = new FileReader()
+    var image = new Image()
 
     reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreview: reader.result
-      });
-      this.props.onChange(reader.result)
+
+      image.onload = () => {
+
+        var width, height
+
+        if (image.width > 600) {
+          width = 600
+          height =  Math.round(image.height/(image.width/600))
+        }
+        else {
+          width = image.width
+          height = image.height
+        }
+
+        this.setState({
+          value: '',
+          image: {
+            preview: reader.result,
+            width: width,
+            height: height
+          }
+        })
+
+        this.props.onChange(this.state.image)
+      }
+      image.src = reader.result
     }
     reader.readAsDataURL(file)
   }
+  selectImage () {
+    this.refs.inputImage.click()
+  }
   render() {
     return (
-      <div className="image-uploader">
+      <div className="item add-image" onClick={this.selectImage.bind(this)}>
         <i className="i-sprite-add-image"></i>
-        <input type="file" name="image" accept="image/*" onChange={this.handleImageChange.bind(this)} />
+        <input type="file" name="image" accept="image/*"
+          onChange={this.handleImageChange.bind(this)}
+          ref="inputImage"
+          value={this.state.value}
+        />
       </div>
     )
   }
