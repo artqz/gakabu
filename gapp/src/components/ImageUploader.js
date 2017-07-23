@@ -39,18 +39,47 @@ class ImageUploader extends Component {
           image: {
             preview: reader.result,
             width: width,
-            height: height
+            height: height,
+            animation: false,
+            url: ''
           }
         })
         this.props.onChange(this.state.image)
+        this.saveImage()
       }
       image.src = reader.result
     }
     reader.readAsDataURL(file)
   }
+
   selectImage () {
     this.refs.inputImage.click()
   }
+
+  saveImage () {
+    console.log(this.state.image.preview);
+    fetch('http://127.0.0.1:8000/api/v1/file', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        image: this.state.image.preview
+      })
+    })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        console.log(this);
+        this.setState({
+          image: {
+            url: 1
+          }
+        })
+        alert( JSON.stringify( data ) )
+      })
+  }
+
   render() {
     return (
       <div className="item add-image" onClick={this.selectImage.bind(this)}>
