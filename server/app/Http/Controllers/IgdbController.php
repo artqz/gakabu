@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +31,8 @@ class IgdbController extends Controller
 
     public function update(Request $request)
     {
+        // mklink /j E:\composter\gakabu\server\public\images E:\composter\gakabu\server\storage\app\public\images
+
        $validator = Validator::make($request->all(), [
            'image' => 'required'
        ]);
@@ -39,18 +41,90 @@ class IgdbController extends Controller
            return response()->json(['errors'=>$validator->errors()]);
        }
        else {
+           // переменные для создания необходимых каталогов
+           $year = date('Y');
+           $month = date('m');
+           $day = date('d');
+           $hour = date('H');
+
+           // генерируем пути для записи
+           $path = '/images/'.$year.'/'.$month.'/'.$day.'/'.$hour.'/';
+           $pathBig = '/images/big/'.$year.'/'.$month.'/'.$day.'/'.$hour.'/';
            $imageData = $request->get('image');
-           $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+           $fileName = Carbon::now()->timestamp . '_' . uniqid();
+
+           //получаем инфу о картинке
+           $getimagesize = getimagesize($imageData);
+
+           // определяем расширение картинки
+           //$imageExt = str_replace('image/', '.', $file_info['mime']);
+           $imageExt = '.'.explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+
+           // проверяем является ли картинка Гифкой
+           // если да, то загружаем оригинал и делаем превью
+           if ($getimagesize['mime'] == 'image/gif') {
+               // создаем необходимый каталог
+               Storage::disk('public')->MakeDirectory($path);
+
+               copy($imageData, public_path($path.$fileName.$imageExt));
+
+               // создаем превью
+               Image::make($request->get('image'))->save(public_path($path.$fileName.'.jpg'))->encode('jpg', 80);
+
+               $data['imageType'] = 'gif';
+               $data['imageUrl'] = url($path.$fileName.$imageExt);
+               $data['imageUrlPreview'] = url($path.$fileName.'.jpg');
+
+               return response()->json($data);
+           }
+
+           // если картинка статичная
            $img = Image::make($request->get('image'));
+
+           // если картинка больше чем нужно делаем 2 комии
            if ($img->width() > 600) {
+               // создаем необходимые каталоги
+               Storage::disk('public')->MakeDirectory($path);
+               Storage::disk('public')->MakeDirectory($pathBig);
+
+               // делаем копию для просмотра 1600 px, если оригинал больше
+               if ($img->width() > 1600) {
+                   $img->resize(1600, null, function ($constraint) {
+                       $constraint->aspectRatio();
+                   });
+
+                   $img->save(public_path($pathBig.$fileName.$imageExt));
+               }
+               else {
+                   $img->save(public_path($pathBig.$fileName.$imageExt));
+               }
+
+               // делаем копию для чтения 600 px
                $img->resize(600, null, function ($constraint) {
                    $constraint->aspectRatio();
                });
+
+               $img->save(public_path($path.$fileName.$imageExt));
+
+               $data['imageType'] = 'jpgBig';
+               $data['imageUrl'] = url($path.$fileName.$imageExt);
+               $data['imageUrlBig'] = url($pathBig.$fileName.$imageExt);
+
+               return response()->json($data);
            }
-           $img->save(public_path('images/') . $fileName);
-           return response()->json(url('images/'.$fileName));
-           //return response()->json(['error' => false]);
-           //return response()->json();
+
+           // если картинка маленька, то просто сохраняем ее
+           else {
+               // создаем необходимый каталог
+               Storage::disk('public')->MakeDirectory($path);
+
+               $img->save(public_path($path.$fileName.$imageExt));
+
+               $data['imageType'] = 'jpg';
+               $data['imageUrl'] = url($path.$fileName.$imageExt);
+
+               return response()->json($data);
+           }
        }
 
     }
