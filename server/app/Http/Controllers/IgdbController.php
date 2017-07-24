@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\Request;
 use Unirest;
-use FFMpeg\FFMpeg;
+//use FFMpeg\FFMpeg;
 
 class IgdbController extends Controller
 {
@@ -31,8 +31,24 @@ class IgdbController extends Controller
     }
 
     public function video() {
-        $ffmpeg = FFMpeg::create();
-        $video = $ffmpeg->open('http://cs6.pikabu.ru/post_img/2017/07/24/3/15008660951384460.mp4');
+        // переменные для создания необходимых каталогов
+        $year = date('Y');
+        $month = date('m');
+        $day = date('d');
+        $hour = date('H');
+
+        // генерируем пути для записи
+        $path = '/images/';
+        $ffmpeg = \FFMpeg\FFMpeg::create([
+            'ffmpeg.binaries' => 'ffmpeg',
+            'fprobe.binaries' => 'fprobe',
+            'timeout'          => 3600, // the timeout for the underlying process
+            'ffmpeg.threads'   => 12,
+        ]);
+
+        $format = new \FFMpeg\Format\Video\X264();
+        $video = $ffmpeg->open('http://cs9.pikabu.ru/post_img/2017/07/24/7/1500897484160519573.gif');
+        $video->save($format, public_path($path).'1.mp4');
         dd($video);
     }
 
