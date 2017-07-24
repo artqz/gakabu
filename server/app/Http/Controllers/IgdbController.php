@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\Request;
 use Unirest;
+use FFMpeg\FFMpeg;
 
 class IgdbController extends Controller
 {
@@ -27,6 +28,12 @@ class IgdbController extends Controller
             )
         );
         return Response::json($games->body);
+    }
+
+    public function video() {
+        $ffmpeg = FFMpeg::create();
+        $video = $ffmpeg->open('http://cs6.pikabu.ru/post_img/2017/07/24/3/15008660951384460.mp4');
+        dd($video);
     }
 
     public function update(Request $request)
