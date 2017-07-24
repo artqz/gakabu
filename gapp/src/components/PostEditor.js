@@ -40,8 +40,8 @@ class PostEditor extends Component {
   }
   handleImageChange(image) {
     const items = this.state.items
-
-    if (image.preview) {
+    console.log(image.index);
+    if (!image.loading) {
       items.push({
         type: 'image',
         base64: image.base64,
@@ -49,13 +49,22 @@ class PostEditor extends Component {
         height: image.height,
         url: image.url,
         animation: image.animation,
-        preview: image.preview,
         index: image.index
       })
     }
     else {
-      items[image.index].url = image.url
-      items[image.index].preview = image.preview
+      if (image.type === 'imageGif') {
+        items[image.index].url = image.url
+        items[image.index].urlGif = image.urlGif
+        items[image.index].size = image.size
+      }
+      else if (image.type === 'imageBig') {
+        items[image.index].url = image.url
+        items[image.index].urlBig = image.urlBig
+      }
+      else {
+        items[image.index].url = image.url
+      }
     }
 
     this.setState({
@@ -100,7 +109,7 @@ class PostEditor extends Component {
           )
         }
     })
-    console.log(this.state.items.length)
+    console.log(this.state.items.length);
     return (
       <div className="post-editor">
         <ul className="items-list">{items}</ul>

@@ -10,8 +10,12 @@ class ImageUploader extends Component {
       width: '',
       height: '',
       url: '',
+      urlBig: '',
+      urlGif: '',
+      size: '',
+      type: '',
+      loading: false,
       animation: false,
-      preview: true,
       index: this.props.index
     }
   }
@@ -25,15 +29,27 @@ class ImageUploader extends Component {
 
       image.onload = () => {
 
-        var width, height
+        var width, height, animation, type, size
+
+        size = Math.round(file.size/1024/1024*100)/100
 
         if (image.width > 600) {
           width = 600
           height =  Math.round(image.height/(image.width/600))
+          type = 'imageBig'
         }
         else {
           width = image.width
           height = image.height
+          type = 'image'
+        }
+
+        if (file.type === 'image/gif') {
+          animation = true
+          type = 'imageGif'
+        }
+        else {
+          animation = false
         }
 
         this.setState({
@@ -42,10 +58,14 @@ class ImageUploader extends Component {
             base64: reader.result,
             width: width,
             height: height,
-            animation: false,
+            animation: animation,
             url: '',
-            preview: true,
-            index: this.state.image.index
+            urlBig: '',
+            urlGif: '',
+            size: size,
+            type: type,
+            loading: false,
+            index: this.props.index
           }
         })
         this.props.onChange(this.state.image)
@@ -74,14 +94,38 @@ class ImageUploader extends Component {
     })
       .then((res) => { return res.json(); })
       .then((data) => {
-        console.log(JSON.stringify(data));
-        this.setState({
-          image: {
-            ...this.state.image,
-            url: JSON.stringify(data),
-            preview: false
-          }
-        })
+
+        if (data.imageType === "gif") {
+          this.setState({
+            image: {
+              ...this.state.image,
+              loading: true,
+              url: data.imageUrlPreview,
+              urlGif: data.imageUrl,
+              animation: true
+            }
+          })
+        }
+        else if (data.imageType === "jpgBig") {
+          this.setState({
+            image: {
+              ...this.state.image,
+              loading: true,
+              url: data.imageUrl,
+              urlBig: data.imageUrlBig
+            }
+          })
+        }
+        else {
+          this.setState({
+            image: {
+              ...this.state.image,
+              loading: true,
+              url: data.imageUrl
+            }
+          })
+        }
+
         this.props.onChange(this.state.image)
       })
   }
