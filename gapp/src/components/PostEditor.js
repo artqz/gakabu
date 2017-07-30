@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Editor from 'react-medium-editor'
 
 import ImageUploader from './ImageUploader'
+import ImageCanvas from './ImageCanvas'
 
 import './PostEditor.css'
 import './Editor.css'
@@ -89,6 +90,15 @@ class PostEditor extends Component {
     }
   }
 
+  deleteItem (index) {
+    const items = this.state.items
+
+    items.splice(index, 1);
+    this.setState({
+      items: items
+    })
+  }
+
   render() {
     var items = this.state.items
       .map((item, index) => {
@@ -106,6 +116,8 @@ class PostEditor extends Component {
         else if (item.type === 'image') {
           return (
             <li className="item-image" key={index}>
+              <ImageCanvas data={item} />
+              <div onClick={this.deleteItem.bind(this, item.index)}>Delete</div>
               <div className="image-block" style={{width : item.width+'px', height : item.height+'px'}}>
                 {this.successfulUploaded(item.url)}
                 <img src={item.base64} alt={Date.now()} width={item.width} height={item.height} />
