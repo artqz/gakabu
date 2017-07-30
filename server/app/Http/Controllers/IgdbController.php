@@ -40,16 +40,18 @@ class IgdbController extends Controller
         // генерируем пути для записи
         $path = '/images/';
         $ffmpeg = \FFMpeg\FFMpeg::create([
-            'ffmpeg.binaries' => 'ffmpeg',
-            'fprobe.binaries' => 'fprobe',
-            'timeout'          => 3600, // the timeout for the underlying process
-            'ffmpeg.threads'   => 12,
+            'ffmpeg.binaries'  => 'c:/ffmpeg/bin/ffmpeg.exe',
+            'ffprobe.binaries' => 'c:/ffmpeg/bin/ffprobe.exe',
         ]);
 
-        $format = new \FFMpeg\Format\Video\X264();
-        $video = $ffmpeg->open('http://cs9.pikabu.ru/post_img/2017/07/24/7/1500897484160519573.gif');
-        $video->save($format, public_path($path).'1.mp4');
-        dd($video);
+
+        $video = $ffmpeg->open(public_path('images\video2.gif'));
+        $video
+            ->save(new \FFMpeg\Format\Video\X264(), public_path('images\mp42.mp4'));
+
+        $video = $ffmpeg->open(public_path('images\mp42.mp4'));
+        $video
+            ->save(new \FFMpeg\Format\Video\WebM(), public_path('images\webm2.webm'));
     }
 
     public function update(Request $request)

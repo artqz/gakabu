@@ -51,6 +51,7 @@ class PostEditor extends Component {
         animation: image.animation,
         index: image.index
       })
+
     }
     else {
       if (image.type === 'imageGif') {
@@ -72,6 +73,7 @@ class PostEditor extends Component {
     })
     console.log(this.state.items);
   }
+
   addItemText () {
     const items = this.state.items
 
@@ -80,6 +82,13 @@ class PostEditor extends Component {
       items: items
     })
   }
+
+  successfulUploaded (itemUrl) {
+    if (itemUrl) {
+      return <div className="item-successful-uploaded"><i className="i-sprite-successful-uploaded"></i></div>;
+    }
+  }
+
   render() {
     var items = this.state.items
       .map((item, index) => {
@@ -97,7 +106,10 @@ class PostEditor extends Component {
         else if (item.type === 'image') {
           return (
             <li className="item-image" key={index}>
-              <img src={item.base64} alt={Date.now()} width={item.width} height={item.height} />
+              <div className="image-block" style={{width : item.width+'px', height : item.height+'px'}}>
+                {this.successfulUploaded(item.url)}
+                <img src={item.base64} alt={Date.now()} width={item.width} height={item.height} />
+              </div>
             </li>
           )
         }
