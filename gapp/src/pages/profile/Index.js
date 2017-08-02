@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Switch, Route, Link } from 'react-router-dom'
+import { Switch, Route, NavLink } from 'react-router-dom'
 
 import ProfileMain from '../../components/ProfileMain'
+import ProfileLevel from '../../components/ProfileLevel'
+import ProfileStats from '../../components/ProfileStats'
 import './Index.css'
 
 class Index extends Component {
@@ -14,20 +16,21 @@ class Index extends Component {
           <div className="narrow-column">
             <div className="page-block">
               <ul className="profile-right-menu">
-               <li className="profile-right-menu-item profile-right-menu-item-selected"><Link to='/profile'>Основное</Link></li>
-               <li className="profile-right-menu-item"><Link to='/profile/level'>Повысить уровень</Link></li>
-               <li className="profile-right-menu-item">Статистика</li>
+                <NavLink exact={true} to='/profile'><li className="profile-right-menu-item">Основное</li></NavLink>
+                <NavLink to='/profile/level'><li className="profile-right-menu-item">Повысить уровень</li></NavLink>
+                <NavLink to='/profile/stats'><li className="profile-right-menu-item">Статистика</li></NavLink>
               </ul>
             </div>
           </div>
 
           <div className="wide-column">
-            <div className="page-block">
-              <div className="page-block-header">
-                Основное
-              </div>
+            <div className="page-block">              
               <div>
-                  <Route exact path='cho_blya_nado?' component={ProfileMain}/>
+                <Switch>
+                  <Route exact path='/profile' component={ProfileMain}/>
+                  <Route exact path='/profile/level' component={ProfileLevel}/>
+                  <Route exact path='/profile/stats' component={ProfileStats}/>
+                </Switch>
               </div>
             </div>
           </div>

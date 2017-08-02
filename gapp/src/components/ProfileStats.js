@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-class ProfileMain extends Component {
+class ProfileStats extends Component {
   render () {
     return (
       <div>
         <div className="page-block-header">
-          Основное
+          Статистика
         </div>
         <div className="page-block-body">
           <p>Пусто</p>
@@ -14,4 +14,4 @@ class ProfileMain extends Component {
     )
   }
 }
-export default ProfileMain;
+export default ProfileStats;
