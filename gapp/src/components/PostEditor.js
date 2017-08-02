@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Editor from 'react-medium-editor'
 
 import ImageUploader from './ImageUploader'
-import ImageCanvas from './ImageCanvas'
 
 import './PostEditor.css'
 import './Editor.css'
@@ -88,6 +87,9 @@ class PostEditor extends Component {
     if (itemUrl) {
       return <div className="item-successful-uploaded"><i className="i-sprite-successful-uploaded"></i></div>;
     }
+    else {
+      return <div className="item-failed-uploaded">Ошибка загрузки картинки!</div>
+    }
   }
 
   deleteItem (index) {
@@ -116,9 +118,8 @@ class PostEditor extends Component {
         else if (item.type === 'image') {
           return (
             <li className="item-image" key={index}>
-              <ImageCanvas data={item} />
-              <div onClick={this.deleteItem.bind(this, item.index)}>Delete</div>
-              <div className="image-block" style={{width : item.width+'px', height : item.height+'px'}}>
+              <div id={index} onClick={this.deleteItem.bind(this, item.index)}>Delete</div>
+              <div id={index} className="image-block" style={{width : item.width+'px', height : item.height+'px'}}>
                 {this.successfulUploaded(item.url)}
                 <img src={item.base64} alt={Date.now()} width={item.width} height={item.height} />
               </div>

@@ -5,9 +5,12 @@ const Header = () => (
   <header>
     <nav>
       <ul>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/about'>About</Link></li>
-        <li><Link to='/add'>Create Post</Link></li>
+        <li><Link to='/'>Свежее</Link></li>
+        <li><Link to='/'>Горячее</Link></li>
+        <li><Link to='/'>Лучшее</Link></li>
+        <li><Link to='/about'>О проекте</Link></li>
+        <li><Link to='/add'>Добавить пост</Link></li>
+        <li><Link to='/profile'>Профиль</Link></li>
       </ul>
     </nav>
   </header>

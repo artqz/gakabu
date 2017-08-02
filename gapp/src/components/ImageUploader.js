@@ -94,7 +94,6 @@ class ImageUploader extends Component {
     })
       .then((res) => { return res.json(); })
       .then((data) => {
-
         if (data.imageType === "gif") {
           this.setState({
             image: {
@@ -102,7 +101,8 @@ class ImageUploader extends Component {
               loading: true,
               url: data.imageUrlPreview,
               urlGif: data.imageUrl,
-              animation: true
+              animation: true,
+              status: 'successful'
             }
           })
         }
@@ -112,7 +112,8 @@ class ImageUploader extends Component {
               ...this.state.image,
               loading: true,
               url: data.imageUrl,
-              urlBig: data.imageUrlBig
+              urlBig: data.imageUrlBig,
+              status: 'successful'
             }
           })
         }
@@ -121,10 +122,23 @@ class ImageUploader extends Component {
             image: {
               ...this.state.image,
               loading: true,
-              url: data.imageUrl
+              url: data.imageUrl,
+              status: 'successful'
             }
           })
         }
+
+        this.props.onChange(this.state.image)
+      })
+      .catch((res) => {
+        this.setState({
+          image: {
+            ...this.state.image,
+            loading: true,
+            url: '',
+            status: 'error'
+          }
+        })
 
         this.props.onChange(this.state.image)
       })
