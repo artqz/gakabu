@@ -64,3 +64,13 @@ html
     padding: 15px 20px;
     line-height: 150%;
   }
+
+  .clear-fix:after {
+    content: '.';
+    display: block;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    clear: both;
+    visibility: hidden;
+}
