@@ -38,3 +38,75 @@
   text-overflow: ellipsis;
   position: relative;
 }
+
+.post-read-more {
+  text-align: center;
+  padding: 5px 10px;
+  background-color: #f0f2f5;
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+.post-read-more:hover {
+  background-color: #edeef0;
+}
+
+.post-read-more .dot {
+  margin: 2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: grey;
+  display: inline-block;
+}
+
+.post-read-more .text {
+  font-size: 13px;
+  color: grey;
+  padding-left: 7px;
+}
+
+.post-wrap {
+  padding: 11px 0;
+  margin: 0 20px;
+  border-top: 1px solid #e7e8ec;
+  border-radius: 0 0 2px 2px;
+}
+
+.post-wrap-like,
+.post-wrap-dislike {
+  display: inline-block;
+  padding: 3px 7px;
+  border-radius: 2px;
+}
+
+.post-wrap-like:hover,
+.post-wrap-dislike:hover {
+  background-color: #f0f2f5;
+  cursor: pointer;
+}
+
+.i-sprite {
+  background-image: url(/icons/i-sprites.png);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.dislike {
+  background-position: -36px -2px;
+  width: 20px;
+  height: 18px;
+}
+.dislike-count {
+  padding: 0px 5px;
+  font-size: 13px;
+}
+.like {
+  background-position: -61px -2px;
+  width: 20px;
+  height: 18px;
+}
+.like-count {
+  padding: 0px 5px;
+  font-size: 13px;
+}

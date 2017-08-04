@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+//import PostLike from './PostLike'
 import './Post.css'
 
 class Post extends Component {
@@ -22,6 +23,19 @@ class Post extends Component {
             123
             <br/>
             123
+          </div>
+          <div className="post-read-more">
+            <span className="text">Показать полностью</span>
+          </div>
+          <div className="post-wrap">
+            <div className="post-wrap-like">
+              <i className="i-sprite like"></i>
+              <span className="like-count">12</span>
+            </div>
+            <div className="post-wrap-dislike">
+              <i className="i-sprite dislike"></i>
+              <span className="dislike-count">1</span>
+            </div>
           </div>
         </div>
       </div>
