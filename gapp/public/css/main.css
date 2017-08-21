@@ -83,6 +83,7 @@ html
   max-width: 390px;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
+  text-align: center;
 }
 
 .modal-box .title {
@@ -92,6 +93,11 @@ html
   font-weight: 300;
   line-height: 1.1em;
   text-transform: uppercase;
+}
+.form-fieldset {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 .field-input {
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
@@ -108,3 +114,56 @@ html
   line-height: 20px;
   margin: 10px 0;
 }
+.field-correct:after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -7px;
+    height: 14px;
+width: 14px;
+background-position: 0 -84px;
+}
+.btn {
+    outline: transparent solid;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+    height: 36px;
+    padding: 0 10px;
+    line-height: 34px;
+    border-radius: 3px;
+    border-color: #bababa #bababa #aaa;
+    background: #dedede;
+    font-family: inherit;
+    font-weight: 600;
+    white-space: nowrap;
+    text-align: center;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+    color: #4c4c4c;
+    -moz-box-sizing: border-box;
+box-sizing: border-box;
+display: block;
+width: 100%;
+min-height: 42px;
+padding: 10px;
+border: #b1b1b1 solid 1px;
+font-size: 1em;
+line-height: 20px;
+cursor: pointer;
+}
+.btn-green {
+  font-size: 1.07692em;
+  color: #fff;
+  background: linear-gradient(#9fbf00,#80ab00);
+  background-color: #9fbf00;
+  border-color: #a7a7a7 #a7a7a7 #8a8a8a;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.btn-green:hover {
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…dpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);
+    background: linear-gradient(#a3c400,#84b000);
+    background-color: #a3c400;
+  }

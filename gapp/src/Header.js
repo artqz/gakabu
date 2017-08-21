@@ -2,7 +2,9 @@ import React  from 'react'
 import { Link } from 'react-router-dom'
 
 import './Header.css'
-
+const openModalLogin = () => {
+  console.log(123);
+}
 const Header = () => (
   <header>
     <div className="container">
@@ -12,7 +14,8 @@ const Header = () => (
           <li><Link to='/about'>О проекте</Link></li>
           <li><Link to='/add'>Добавить пост</Link></li>
           <li><Link to='/profile'>Профиль</Link></li>
-          <li><Link to='/login'>Логин</Link></li>
+          <li><a onClick={openModalLogin}>Логин</a></li>
+          <li><a>Регистрация</a></li>
         </ul>
       </nav>
       <div className="top-profile">

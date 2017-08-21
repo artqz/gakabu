@@ -1,25 +1,55 @@
 import React, { Component } from 'react'
-
+import config from '../../config'
 
 class Registration extends Component {
   state = {
-    nickname: '',
-    email: '',
+    username: {
+      value: '',
+      class: ''
+    },
+    email:  {
+      value: '',
+      class: ''
+    },
     password: '',
     confirmPassword: '',
   }
-  registration () {
+  checkUsername (value) {
+    var urlParam
 
+    if (value === 'username') { urlParam = 'users/check?username=' + this.state.username.value }
+    else if (value === 'email') { urlParam = 'users/check?email=' + this.state.email.value }
+
+    fetch(config.apiUrl + urlParam, {
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then((result) => {
+      console.log(result);
+      this.setState({
+        username: {
+          class: ' field-correct'
+        }
+      })
+    })
+  }
+  handleClick () {
+    console.log(this.state);
   }
   render() {
     return (
       <div className="modal-box">
         <h2 className="title">Регистрация</h2>
-        <input className="field-input" placeholder="Имя пользователя" name="email" onChange={event => this.setState({nickname: event.target.value})} />
-        <input className="field-input" placeholder="Электронная почта" name="email" onChange={event => this.setState({email: event.target.value})} />
+        <ul className="form-fieldset">
+          <li className={'form-field' + ((this.state.username.class) ? this.state.username.class : '')}>
+            <input className="field-input" placeholder="Имя пользователя" name="username" onChange={event => this.setState({username: {value: event.target.value}})} onBlur={this.checkUsername.bind(this, 'username')} />
+          </li>
+        </ul>
+
+        <input className="field-input" placeholder="Электронная почта" name="email" onChange={event => this.setState({email: {value: event.target.value}})} onBlur={this.checkUsername.bind(this, 'email')} />
         <input className="field-input" placeholder="Пароль" type="password" name="password" onChange={event => this.setState({password: event.target.value})} />
         <input className="field-input" placeholder="Повторите пароль" type="password" name="confirmPassword" onChange={event => this.setState({confirmPassword: event.target.value})} />
-        <input className="field-input" type="submit" name="ok" onClick={this.registration.bind(this)} />
+        <input className="btn btn-green" type="submit" name="ok" onClick={this.handleClick.bind(this)} />
       </div>
     )
   }

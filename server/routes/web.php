@@ -28,6 +28,9 @@ $api->version('v1', function ($api) {
 
         // Список пользователей
         $api->get('users', 'UsersController@index');
+
+        // Поиск пользователя по нику или почте - возвращает true/false
+        $api->get('users/check', 'UsersController@check');
     });
 });
 

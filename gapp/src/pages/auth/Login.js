@@ -26,7 +26,6 @@ class Login extends Component {
     })
     .then(response => response.json())
     .then((result) => {
-      console.log(this);
       localStorage.setItem('token', result.access_token);
       localStorage.setItem('expiration', result.expires_in);
     })

@@ -13,7 +13,7 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $users = [
-            ['name' => 0, 'email' => 'test@test.ru', 'password' => bcrypt('110789')]
+            ['username' => 'test', 'email' => 'test@test.ru', 'password' => bcrypt('110789')]
         ];
 
         User::insert($users);
