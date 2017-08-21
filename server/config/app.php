@@ -177,6 +177,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // Passport
+        Laravel\Passport\PassportServiceProvider::class,
+
+        // Dingo API
+        Dingo\Api\Provider\LaravelServiceProvider::class,
+
         // Tymon  JWT Auth
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 

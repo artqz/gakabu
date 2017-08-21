@@ -24,7 +24,7 @@ class Index extends Component {
               <div className="module-body">
                 <div className="module-line clear-fix">
                   <div className="module-image">
-                    <img src="http://localhost:8000/images/games/icons/1.jpg" />
+                    <img src="http://localhost:8000/images/games/icons/1.jpg" alt="1" />
                   </div>
                   <div className="module-info">
                     <div className="name">Xyu Game 5</div>

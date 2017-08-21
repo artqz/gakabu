@@ -46,7 +46,6 @@ class LevelsSeeder extends Seeder
             ['level' => 30, 'required_coins' => 5000, 'count_posts' => 30, 'count_comments' => 60],
         ];
 
-
         Levels::insert($levels);
 
     }

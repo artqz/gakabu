@@ -10,7 +10,7 @@ class Post extends Component {
         <div className="page-block">
           <div className="post-header">
             <a className="post-game-image">
-              <img src="http://localhost:8000/images/games/icons/1.jpg" />
+              <img src="http://localhost:8000/images/games/icons/1.jpg" alt="1" />
             </a>
             <div className="post-game-info">
               <h5 className="post-game-name">Xyu Game 5</h5>

@@ -12,6 +12,7 @@ const Header = () => (
           <li><Link to='/about'>О проекте</Link></li>
           <li><Link to='/add'>Добавить пост</Link></li>
           <li><Link to='/profile'>Профиль</Link></li>
+          <li><Link to='/login'>Логин</Link></li>
         </ul>
       </nav>
       <div className="top-profile">
