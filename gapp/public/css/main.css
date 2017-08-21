@@ -99,6 +99,9 @@ html
     padding: 0;
     margin: 0;
 }
+.form-field {
+  position: relative;
+}
 .field-input {
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
   background: #ededed;
@@ -121,8 +124,9 @@ html
     top: 50%;
     margin-top: -7px;
     height: 14px;
+    background-image: url(/icons/i-sprites.png);
 width: 14px;
-background-position: 0 -84px;
+background-position: 0 -57px;
 }
 .btn {
     outline: transparent solid;

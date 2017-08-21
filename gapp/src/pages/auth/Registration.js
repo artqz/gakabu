@@ -17,8 +17,8 @@ class Registration extends Component {
   checkUsername (value) {
     var urlParam
 
-    if (value === 'username') { urlParam = 'users/check?username=' + this.state.username.value }
-    else if (value === 'email') { urlParam = 'users/check?email=' + this.state.email.value }
+    if (value === 'username') { urlParam = '/users/check?username=' + this.state.username.value }
+    else if (value === 'email') { urlParam = '/users/check?email=' + this.state.email.value }
 
     fetch(config.apiUrl + urlParam, {
       method: 'GET'
@@ -26,11 +26,22 @@ class Registration extends Component {
     .then(response => response.json())
     .then((result) => {
       console.log(result);
-      this.setState({
-        username: {
-          class: ' field-correct'
+      if (! result.result) {
+        if (value === 'username') {
+          this.setState({ username: { class: ' field-correct' } })
         }
-      })
+        else if (value === 'email') {
+          this.setState({ email: { class: ' field-correct' } })
+        }
+      }
+      else {
+        if (value === 'username') {
+          this.setState({ username: { class: ' field-error' } })
+        }
+        else if (value === 'email') {
+          this.setState({ email: { class: ' field-error' } })
+        }
+      }
     })
   }
   handleClick () {
