@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import config from '../../config'
 
+import TextInput from '../../components/auth/TextInput'
+
 class Registration extends Component {
   state = {
     username: {
@@ -16,8 +18,24 @@ class Registration extends Component {
     password: '',
     confirmPassword: '',
   }
-  changeValue () {
+  changeValue (value) {
+    this.setState({
+      username: {
+        ...this.state.username,
+        value: value
+      }
+    })
+  }
 
+  validateEmail (value) {
+    // Проверка email на валидность
+    var validateEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+
+    if (! value.match(validateEmail)) {
+      return { class: 'field-error', error: 'Некорректная электронная почта' }
+    }
+    
+    return {error: '', class: ''}
   }
   checkUsername (value) {
     var urlParam, validateEmail
@@ -118,10 +136,11 @@ class Registration extends Component {
             {(this.state.email.error === 'invalid') ? <span className="field-msg">Неправильный email</span> : null}
           </li>
         </ul>
-
+        <TextInput inputType="text" inputPlaceholder="Имя пользователя" inputName="username" inputClass="field-input" changeValue={this.changeValue.bind(this)} inputValidate={this.validateEmail} />
         <input className="field-input" placeholder="Пароль" type="password" name="password" onChange={event => this.setState({password: event.target.value})} />
         <input className="field-input" placeholder="Повторите пароль" type="password" name="confirmPassword" onChange={event => this.setState({confirmPassword: event.target.value})} />
         <input className="btn btn-green" type="submit" name="ok" onClick={this.handleClick.bind(this)} />
+        <pre>{this.state.username.value}</pre>
       </div>
     )
   }

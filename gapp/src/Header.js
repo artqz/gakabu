@@ -7,7 +7,7 @@ const openModalLogin = () => {
 }
 const Header = () => (
   <header>
-    <div className="container">
+    <div className="container">      
       <nav>
         <ul>
           <li><Link to='/feed'>Лента</Link></li>
