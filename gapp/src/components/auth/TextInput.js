@@ -27,6 +27,7 @@ class TextInput extends Component {
       <div className={'form-field ' + this.state.class}>
         <input
           type={this.props.inputType}
+          value={this.state.value}
           placeholder={this.props.inputPlaceholder}
           name={this.props.inputName}
           className={this.props.inputClass}
