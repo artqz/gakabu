@@ -128,7 +128,7 @@ class Registration extends Component {
     })
   }
 
-  changeValue (value) {
+  changeInputEmail (value) {
     this.setState({
       email: {
         ...this.state.email,
@@ -137,7 +137,7 @@ class Registration extends Component {
     })
   }
 
-  validateEmail () {
+  validateInputEmail () {
     // Проверка email на валидность
     var validateEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 
@@ -217,7 +217,7 @@ class Registration extends Component {
       <div className="modal-box">
         <h2 className="title">Регистрация</h2>
         <TextInput inputType="text" data={this.state.username} inputPlaceholder="Ваш ник" inputName="username" inputClass="field-input" changeValue={this.changeInputUsername.bind(this)} inputValidate={this.validateInputUsername.bind(this)} />
-        <TextInput inputType="text" data={this.state.email} inputPlaceholder="Электронная почта" inputName="email" inputClass="field-input" changeValue={this.changeValue.bind(this)} inputValidate={this.validateEmail.bind(this)} />
+        <TextInput inputType="text" data={this.state.email} inputPlaceholder="Электронная почта" inputName="email" inputClass="field-input" changeValue={this.changeInputEmail.bind(this)} inputValidate={this.validateInputEmail.bind(this)} />
         <TextInput inputType="password" data={this.state.password} inputPlaceholder="Пароль" inputName="password" inputClass="field-input" changeValue={this.changeInputPassword.bind(this)} inputValidate={this.validateInputPassword.bind(this)} />
         <input className="btn btn-green" type="submit" name="ok" onClick={this.handleClick.bind(this)} />
         <pre>{this.state.email.value}</pre>
