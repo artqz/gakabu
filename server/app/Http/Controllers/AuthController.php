@@ -11,13 +11,13 @@ class AuthController extends Controller
 {
     protected function registrationUser (Request $request) {
         $this->validate($request, [
-            'name' => 'required|string|max:255|unique:users',
+            'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
         return User::create([
-            'name' => $request['name'],
+            'username' => $request['username'],
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
         ]);

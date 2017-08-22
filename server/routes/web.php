@@ -20,7 +20,7 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Http\Controllers'], function ($api) {
         // Регистрация пользователя
-        $api->post('auth/user/registration', 'AuthController@registrationUser');
+        $api->post('auth/registration', 'AuthController@registrationUser');
         // Авторизация пользователя
         $api->post('auth/user/login', 'AuthController@loginUser');
         // Выход пользователя

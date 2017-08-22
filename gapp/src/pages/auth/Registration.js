@@ -15,9 +15,119 @@ class Registration extends Component {
       class: '',
       error: ''
     },
-    password: '',
-    confirmPassword: '',
+    password:  {
+      value: '',
+      class: '',
+      error: ''
+    }
   }
+
+  changeInputPassword (value) {
+    this.setState({
+      password: {
+        ...this.state.password,
+        value: value
+      }
+    })
+  }
+
+  validateInputPassword () {
+    // Проверяем имя пользователя на количество символов
+    if (this.state.password.value.length < 6) {
+      return this.setState({
+        password: {
+          ...this.state.password,
+          class: 'field-error',
+          error: 'Пароль должен быть больше 6 символов'
+        }
+      })
+    }
+    else if (this.state.password.value.length > 24) {
+      return this.setState({
+        password: {
+          ...this.state.password,
+          class: 'field-error',
+          error: 'Пароль не может быть больше 24 символов'
+        }
+      })
+    }
+
+    return this.setState({
+      password: {
+        ...this.state.password,
+        class: '',
+        error: ''
+      }
+    })
+  }
+
+  changeInputUsername (value) {
+    this.setState({
+      username: {
+        ...this.state.username,
+        value: value
+      }
+    })
+  }
+
+  validateInputUsername () {
+    // Проверяем имя пользователя на количество символов
+    if (this.state.username.value.length < 3) {
+      return this.setState({
+        username: {
+          ...this.state.username,
+          class: 'field-error',
+          error: 'Имя пользователя слишком короткое'
+        }
+      })
+    }
+    else if (this.state.username.value.length > 24) {
+      return this.setState({
+        username: {
+          ...this.state.username,
+          class: 'field-error',
+          error: 'Слишком длинное имя'
+        }
+      })
+    }
+
+    // Проверка на занятость
+    var urlParam = '/users/check?username=' + this.state.username.value
+
+    fetch(config.apiUrl + urlParam, {
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then((result) => {
+      if (result.result) {
+        return this.setState({
+          username: {
+            ...this.state.username,
+            class: 'field-error',
+            error: 'Имя уже занято'
+          }
+        })
+      }
+      else {
+        return this.setState({
+          username: {
+            ...this.state.username,
+            class: 'field-correct',
+            error: ''
+          }
+        })
+      }
+    })
+
+    return this.setState({
+      username: {
+        ...this.state.username,
+        class: '',
+        error: ''
+      }
+    })
+  }
+
   changeValue (value) {
     this.setState({
       email: {
@@ -69,110 +179,46 @@ class Registration extends Component {
       }
     })
 
-    return {error: '', class: ''}
-  }
-  checkUsername (value) {
-    var urlParam, validateEmail
-
-    if (value === 'username') {
-      urlParam = '/users/check?username=' + this.state.username.value
-    }
-    else if (value === 'email') {
-      urlParam = '/users/check?email=' + this.state.email.value
-    }
-    console.log(this.state);
-    // Проверяем имя пользователя на количество символов
-    if (this.state.username.value.length < 3) {
-      return this.setState({
-        username: {
-          ...this.state.username,
-          class: ' field-error',
-          error: 'short'
-        }
-      })
-    }
-    else if (this.state.username.value.length > 24) {
-      return this.setState({
-        username: {
-          ...this.state.username,
-          class: ' field-error',
-          error: 'long'
-        }
-      })
-    }
-
-    //Проверка email
-    validateEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-
-    if (! this.state.email.value.match(validateEmail) && this.state.email.value.length < 3) {
-      return this.setState({
-        email: {
-          ...this.state.email,
-          class: ' field-error',
-          error: 'invalid'
-        }
-      })
-    }
-
-    // Проверка на занятость
-    fetch(config.apiUrl + urlParam, {
-      method: 'GET'
-    })
-    .then(response => response.json())
-    .then((result) => {
-      console.log(result);
-      if (! result.result) {
-        if (value === 'username') {
-          this.setState({ username: { ...this.state.username, class: ' field-correct', error: '' } })
-        }
-        else if (value === 'email') {
-          this.setState({ email: { ...this.state.email, class: ' field-correct', error: '' } })
-        }
-      }
-      else {
-        if (value === 'username') {
-          this.setState({
-            username: {
-              ...this.state.username,
-              class: ' field-error',
-              error: 'exists'
-            }
-           })
-        }
-        else if (value === 'email') {
-          this.setState({
-            email: {
-              ...this.state.email,
-              class: ' field-error',
-              error: 'exists'
-            } })
-        }
+    return this.setState({
+      email: {
+        ...this.state.email,
+        class: '',
+        error: ''
       }
     })
   }
+
   handleClick () {
-    console.log(this.state);
+    if (this.state.username.value && this.state.email.value && this.state.password.value ) {
+      fetch(config.apiUrl + '/auth/registration', {
+        credentials: true,
+        mode: 'cors',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          username: this.state.username.value,
+          email: this.state.email.value,
+          password: this.state.password.value,
+          password_confirmation: this.state.password.value
+        })
+      })
+      .then(response => response.json())
+      .then((result) => {
+        console.log(result);
+      })
+    }
   }
+
   render() {
     return (
       <div className="modal-box">
         <h2 className="title">Регистрация</h2>
-        <ul className="form-fieldset">
-          <li className={'form-field' + ((this.state.username.class) ? this.state.username.class : '')}>
-            <input className="field-input" placeholder="Имя пользователя" name="username" onChange={event => this.setState({username: {value: event.target.value}})} onBlur={this.checkUsername.bind(this, 'username')} />
-            {(this.state.username.error === 'exists') ? <span className="field-msg">Имя пользователя уже занято</span> : null}
-            {(this.state.username.error === 'short') ? <span className="field-msg">Имя пользователя слишком короткое</span> : null}
-            {(this.state.username.error === 'long') ? <span className="field-msg">Слишком длинное имя</span> : null}
-          </li>
-          <li className={'form-field' + ((this.state.email.class) ? this.state.email.class : '')}>
-            <input className="field-input" placeholder="Электронная почта" name="email" onChange={event => this.setState({email: {value: event.target.value}})} onBlur={this.checkUsername.bind(this, 'email')} />
-            {(this.state.email.error === 'exists') ? <span className="field-msg">Электронная почта уже занята</span> : null}
-            {(this.state.email.error === 'invalid') ? <span className="field-msg">Неправильный email</span> : null}
-          </li>
-        </ul>
+        <TextInput inputType="text" data={this.state.username} inputPlaceholder="Ваш ник" inputName="username" inputClass="field-input" changeValue={this.changeInputUsername.bind(this)} inputValidate={this.validateInputUsername.bind(this)} />
         <TextInput inputType="text" data={this.state.email} inputPlaceholder="Электронная почта" inputName="email" inputClass="field-input" changeValue={this.changeValue.bind(this)} inputValidate={this.validateEmail.bind(this)} />
-        <input className="field-input" placeholder="Пароль" type="password" name="password" onChange={event => this.setState({password: event.target.value})} />
-        <input className="field-input" placeholder="Повторите пароль" type="password" name="confirmPassword" onChange={event => this.setState({confirmPassword: event.target.value})} />
+        <TextInput inputType="password" data={this.state.password} inputPlaceholder="Пароль" inputName="password" inputClass="field-input" changeValue={this.changeInputPassword.bind(this)} inputValidate={this.validateInputPassword.bind(this)} />
         <input className="btn btn-green" type="submit" name="ok" onClick={this.handleClick.bind(this)} />
         <pre>{this.state.email.value}</pre>
       </div>
