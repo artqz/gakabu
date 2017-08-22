@@ -35,11 +35,39 @@ class Registration extends Component {
       return this.setState({
         email: {
           ...this.state.email,
-          class: ' field-error',
+          class: 'field-error',
           error: 'Некорректный адрес почты'
         }
       })
     }
+
+    // Проверка на занятость
+    var urlParam = '/users/check?email=' + this.state.email.value
+
+    fetch(config.apiUrl + urlParam, {
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then((result) => {
+      if (result.result) {
+        return this.setState({
+          email: {
+            ...this.state.email,
+            class: 'field-error',
+            error: 'Данный адрес уже занят'
+          }
+        })
+      }
+      else {
+        return this.setState({
+          email: {
+            ...this.state.email,
+            class: 'field-correct',
+            error: ''
+          }
+        })
+      }
+    })
 
     return {error: '', class: ''}
   }
