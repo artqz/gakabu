@@ -1,40 +1,25 @@
 import React, { Component } from 'react'
 
 class TextInput extends Component {
-  state = {
-    value: '',
-    class: '',
-    error: ''
-  }
   changeValue (e) {
-    this.setState({
-      value: e.target.value,
-      class: '',
-      error: ''
-    })
     this.props.changeValue(e.target.value)
   }
   inputValidate (e) {
-    console.log(this);
-    this.setState({
-      ...this.state,
-      class: this.props.inputValidate(e.target.value).class,
-      error: this.props.inputValidate(e.target.value).error
-    })
+    this.props.inputValidate()
   }
   render () {
     return (
-      <div className={'form-field ' + this.state.class}>
+      <div className={'form-field ' + this.props.data.class}>
         <input
           type={this.props.inputType}
-          value={this.state.value}
+          value={this.props.data.value}
           placeholder={this.props.inputPlaceholder}
           name={this.props.inputName}
           className={this.props.inputClass}
           onChange={this.changeValue.bind(this)}
           onBlur={this.inputValidate.bind(this)}
         />
-        {(this.state.error) ? <span className="field-msg">{this.state.error}</span> : null}
+        {(this.props.data.error) ? <span className="field-msg">{this.props.data.error}</span> : null}
       </div>
     )
   }

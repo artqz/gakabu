@@ -20,21 +20,27 @@ class Registration extends Component {
   }
   changeValue (value) {
     this.setState({
-      username: {
-        ...this.state.username,
+      email: {
+        ...this.state.email,
         value: value
       }
     })
   }
 
-  validateEmail (value) {
+  validateEmail () {
     // Проверка email на валидность
     var validateEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 
-    if (! value.match(validateEmail)) {
-      return { class: 'field-error', error: 'Некорректная электронная почта' }
+    if (! this.state.email.value.match(validateEmail)) {
+      return this.setState({
+        email: {
+          ...this.state.email,
+          class: ' field-error',
+          error: 'Некорректный адрес почты'
+        }
+      })
     }
-    
+
     return {error: '', class: ''}
   }
   checkUsername (value) {
@@ -136,11 +142,11 @@ class Registration extends Component {
             {(this.state.email.error === 'invalid') ? <span className="field-msg">Неправильный email</span> : null}
           </li>
         </ul>
-        <TextInput inputType="text" inputPlaceholder="Имя пользователя" inputName="username" inputClass="field-input" changeValue={this.changeValue.bind(this)} inputValidate={this.validateEmail} />
+        <TextInput inputType="text" data={this.state.email} inputPlaceholder="Электронная почта" inputName="email" inputClass="field-input" changeValue={this.changeValue.bind(this)} inputValidate={this.validateEmail.bind(this)} />
         <input className="field-input" placeholder="Пароль" type="password" name="password" onChange={event => this.setState({password: event.target.value})} />
         <input className="field-input" placeholder="Повторите пароль" type="password" name="confirmPassword" onChange={event => this.setState({confirmPassword: event.target.value})} />
         <input className="btn btn-green" type="submit" name="ok" onClick={this.handleClick.bind(this)} />
-        <pre>{this.state.username.value}</pre>
+        <pre>{this.state.email.value}</pre>
       </div>
     )
   }
