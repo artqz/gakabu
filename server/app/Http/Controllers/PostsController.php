@@ -19,6 +19,16 @@ class PostsController extends Controller
         $post = Post::where('id', $post_id)->get()[0];
         return Response::json($post);
     }
+    public function showTags($post_id)
+    {
+        $post = Post::where('id', $post_id)->get()[0];
+        return Response::json($post->tags);
+    }
+    public function showComments($post_id)
+    {
+        $post = Post::where('id', $post_id)->get()[0];
+        return Response::json($post->comments);
+    }
 
     public function create(Request $request)
     {

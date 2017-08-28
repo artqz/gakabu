@@ -214,13 +214,15 @@ class Registration extends Component {
 
   render() {
     return (
-      <div className="modal-box">
-        <h2 className="title">Регистрация</h2>
+      <div className="form form-registration">
+        <h2 className="form-title">Регистрация</h2>        
         <TextInput inputType="text" data={this.state.username} inputPlaceholder="Имя пользователся" inputName="username" inputClass="field-input" changeValue={this.changeInputUsername.bind(this)} inputValidate={this.validateInputUsername.bind(this)} />
         <TextInput inputType="text" data={this.state.email} inputPlaceholder="Электронная почта" inputName="email" inputClass="field-input" changeValue={this.changeInputEmail.bind(this)} inputValidate={this.validateInputEmail.bind(this)} />
         <TextInput inputType="password" data={this.state.password} inputPlaceholder="Пароль" inputName="password" inputClass="field-input" changeValue={this.changeInputPassword.bind(this)} inputValidate={this.validateInputPassword.bind(this)} />
-        <input className="btn btn-green" type="submit" name="ok" onClick={this.handleClick.bind(this)} />
-        <pre>{this.state.email.value}</pre>
+        <button className="btn btn-green" onClick={this.handleClick.bind(this)}>Зарегистрироваться</button>
+        <p className="form-description">
+          Регистрируясь, вы подтверждаете, что вам 13 или больше лет и вы соглашаетесь с правилами использования и политикой конфиденциальности.
+        </p>
       </div>
     )
   }

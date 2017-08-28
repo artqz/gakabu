@@ -28,9 +28,14 @@ $api->version('v1', function ($api) {
 
         // Список пользователей
         $api->get('users', 'UsersController@index');
-
         // Поиск пользователя по нику или почте - возвращает true/false
         $api->get('users/check', 'UsersController@check');
+
+        // Список постов
+        // Пост по ID
+        $api->get('/posts/{id}', 'PostsController@show');
+        $api->get('/posts/{id}/tags', 'PostsController@showTags');
+        $api->get('/posts/{id}/comments', 'PostsController@showComments');
     });
 });
 

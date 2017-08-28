@@ -15,4 +15,19 @@ class Post extends Model
         'slug', 'title', 'body', 'user_id',
     ];
 
+    public function game()
+    {
+        return $this->belongsTo('App\Game');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
 }

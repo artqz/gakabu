@@ -1,12 +1,36 @@
 import React, { Component } from 'react'
+import config from '../../config'
 
+import TextInput from '../../components/auth/TextInput'
 
 class Login extends Component {
   state = {
     email: '',
     password: '',
   }
-  login () {
+  changeInputPassword (value) {
+    this.setState({
+      ...this.state,
+      password: value
+    })
+  }
+  validateInputPassword() {
+    return true
+  }
+
+  changeInputEmail (value) {
+    this.setState({
+      ...this.state,
+      email: value
+    })
+  }
+
+  validateInputEmail () {
+    return true
+  }
+
+  handleClick () {
+    console.log(this.state);
     fetch('http://127.0.0.1:8000/oauth/token', {
       credentials: true,
       mode: 'cors',
@@ -18,7 +42,7 @@ class Login extends Component {
       body: JSON.stringify({
         grant_type: 'password',
         client_id: '2',
-        client_secret: 'xHVsMr2FtLJAtWqrZdKsB30VsYEajMpu5UvE70v0',
+        client_secret: 'HHh1D8lqG2DwM2FTCwseCtzQV3iSBXyfJgiloiY1',
         username: this.state.email,
         password: this.state.password,
         scope: '',
@@ -32,10 +56,11 @@ class Login extends Component {
   }
   render() {
     return (
-      <div>
-        <input name="email" onChange={event => this.setState({email: event.target.value})} />
-        <input type="password" name="password" onChange={event => this.setState({password: event.target.value})} />
-        <input type="submit" name="ok" onClick={this.login.bind(this)} />
+      <div className="form form-login">
+        <h2 className="form-title">Войти</h2>
+        <TextInput inputType="text" data={this.state.email} inputPlaceholder="Электронная почта" inputName="email" inputClass="field-input" changeValue={this.changeInputEmail.bind(this)} inputValidate={this.validateInputEmail.bind(this)} />
+        <TextInput inputType="password" data={this.state.password} inputPlaceholder="Пароль" inputName="password" inputClass="field-input" changeValue={this.changeInputPassword.bind(this)} inputValidate={this.validateInputPassword.bind(this)} />
+        <button className="btn btn-green" onClick={this.handleClick.bind(this)}>Войти</button>
       </div>
     )
   }

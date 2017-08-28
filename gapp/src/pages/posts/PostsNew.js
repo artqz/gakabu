@@ -9,6 +9,17 @@ class PostsNew extends Component {
       <div>
         <Post />
         <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
       </div>
     )
   }
